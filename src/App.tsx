@@ -16,6 +16,7 @@ import StrategyCriteria from "./pages/StrategyCriteria";
 import Plans from "./pages/Plans";
 import Pruebas from "./pages/Pruebas";
 import Settings from "./pages/Settings";
+import MantenimientoMejora from "./pages/MantenimientoMejora";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
               <Route path="/strategy-criteria" element={<StrategyCriteria />} />
               <Route path="/plans" element={<Plans />} />
               <Route path="/pruebas" element={<Pruebas />} />
+              <Route path="/mantenimiento-mejora" element={<MantenimientoMejora />} />
               <Route path="/settings" element={<Settings />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

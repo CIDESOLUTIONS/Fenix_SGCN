@@ -49,6 +49,7 @@ const planesItems = [
 
 const validacionItems = [
   { title: "Pruebas de Continuidad", url: "/pruebas", icon: TestTube },
+  { title: "Mantenimiento y Mejora", url: "/mantenimiento-mejora", icon: Settings },
   { title: "Configuración", url: "/settings", icon: Settings },
 ];
 

@@ -151,6 +151,128 @@ export type Database = {
         }
         Relationships: []
       }
+      compliance_framework: {
+        Row: {
+          certificate_number: string | null
+          certification_date: string | null
+          certifying_body: string | null
+          compliance_level: number | null
+          created_at: string
+          expiry_date: string | null
+          framework_name: string
+          id: string
+          last_assessment_date: string | null
+          next_assessment_date: string | null
+          scope_description: string | null
+          status: string | null
+          updated_at: string
+          user_id: string
+          version: string | null
+        }
+        Insert: {
+          certificate_number?: string | null
+          certification_date?: string | null
+          certifying_body?: string | null
+          compliance_level?: number | null
+          created_at?: string
+          expiry_date?: string | null
+          framework_name: string
+          id?: string
+          last_assessment_date?: string | null
+          next_assessment_date?: string | null
+          scope_description?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id: string
+          version?: string | null
+        }
+        Update: {
+          certificate_number?: string | null
+          certification_date?: string | null
+          certifying_body?: string | null
+          compliance_level?: number | null
+          created_at?: string
+          expiry_date?: string | null
+          framework_name?: string
+          id?: string
+          last_assessment_date?: string | null
+          next_assessment_date?: string | null
+          scope_description?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+          version?: string | null
+        }
+        Relationships: []
+      }
+      compliance_requirements: {
+        Row: {
+          action_plan: string | null
+          compliance_status: string | null
+          created_at: string
+          evidence_description: string | null
+          framework_id: string | null
+          gaps_identified: string | null
+          id: string
+          implementation_level: number | null
+          last_review_date: string | null
+          requirement_code: string
+          requirement_description: string | null
+          requirement_title: string
+          responsible_person: string | null
+          reviewer_name: string | null
+          target_completion_date: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          action_plan?: string | null
+          compliance_status?: string | null
+          created_at?: string
+          evidence_description?: string | null
+          framework_id?: string | null
+          gaps_identified?: string | null
+          id?: string
+          implementation_level?: number | null
+          last_review_date?: string | null
+          requirement_code: string
+          requirement_description?: string | null
+          requirement_title: string
+          responsible_person?: string | null
+          reviewer_name?: string | null
+          target_completion_date?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          action_plan?: string | null
+          compliance_status?: string | null
+          created_at?: string
+          evidence_description?: string | null
+          framework_id?: string | null
+          gaps_identified?: string | null
+          id?: string
+          implementation_level?: number | null
+          last_review_date?: string | null
+          requirement_code?: string
+          requirement_description?: string | null
+          requirement_title?: string
+          responsible_person?: string | null
+          reviewer_name?: string | null
+          target_completion_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "compliance_requirements_framework_id_fkey"
+            columns: ["framework_id"]
+            isOneToOne: false
+            referencedRelation: "compliance_framework"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       continuity_plans: {
         Row: {
           activation_criteria: string | null
@@ -418,6 +540,123 @@ export type Database = {
         }
         Relationships: []
       }
+      findings: {
+        Row: {
+          area_department: string | null
+          closure_date: string | null
+          closure_verification: string | null
+          created_at: string
+          description: string | null
+          evidence_attachments: Json | null
+          finding_type: string
+          id: string
+          identified_date: string | null
+          responsible_email: string | null
+          responsible_person: string | null
+          root_cause_analysis: string | null
+          severity: string | null
+          source: string | null
+          status: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          area_department?: string | null
+          closure_date?: string | null
+          closure_verification?: string | null
+          created_at?: string
+          description?: string | null
+          evidence_attachments?: Json | null
+          finding_type?: string
+          id?: string
+          identified_date?: string | null
+          responsible_email?: string | null
+          responsible_person?: string | null
+          root_cause_analysis?: string | null
+          severity?: string | null
+          source?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          area_department?: string | null
+          closure_date?: string | null
+          closure_verification?: string | null
+          created_at?: string
+          description?: string | null
+          evidence_attachments?: Json | null
+          finding_type?: string
+          id?: string
+          identified_date?: string | null
+          responsible_email?: string | null
+          responsible_person?: string | null
+          root_cause_analysis?: string | null
+          severity?: string | null
+          source?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      kpi_metrics: {
+        Row: {
+          created_at: string
+          current_value: number | null
+          id: string
+          measurement_date: string | null
+          measurement_period: string | null
+          measurement_unit: string | null
+          metric_name: string
+          metric_type: string
+          notes: string | null
+          responsible_person: string | null
+          status: string | null
+          target_value: number | null
+          trend: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_value?: number | null
+          id?: string
+          measurement_date?: string | null
+          measurement_period?: string | null
+          measurement_unit?: string | null
+          metric_name: string
+          metric_type: string
+          notes?: string | null
+          responsible_person?: string | null
+          status?: string | null
+          target_value?: number | null
+          trend?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_value?: number | null
+          id?: string
+          measurement_date?: string | null
+          measurement_period?: string | null
+          measurement_unit?: string | null
+          metric_name?: string
+          metric_type?: string
+          notes?: string | null
+          responsible_person?: string | null
+          status?: string | null
+          target_value?: number | null
+          trend?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       maintenance_activities: {
         Row: {
           activity_name: string
@@ -461,6 +700,87 @@ export type Database = {
           notes?: string | null
           priority?: string | null
           status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      management_reviews: {
+        Row: {
+          attendees: Json | null
+          corrective_actions_closed: number | null
+          created_at: string
+          evidence_attachments: Json | null
+          id: string
+          improvement_areas: string | null
+          incidents_count: number | null
+          objective_updates: string | null
+          objectives_achievement_percentage: number | null
+          policy_changes: string | null
+          report_generated: boolean | null
+          report_generated_at: string | null
+          resource_allocation: string | null
+          resource_requirements: string | null
+          review_date: string
+          review_period_end: string | null
+          review_period_start: string | null
+          review_status: string | null
+          strategic_decisions: string | null
+          strengths: string | null
+          system_effectiveness_rating: number | null
+          tests_conducted: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attendees?: Json | null
+          corrective_actions_closed?: number | null
+          created_at?: string
+          evidence_attachments?: Json | null
+          id?: string
+          improvement_areas?: string | null
+          incidents_count?: number | null
+          objective_updates?: string | null
+          objectives_achievement_percentage?: number | null
+          policy_changes?: string | null
+          report_generated?: boolean | null
+          report_generated_at?: string | null
+          resource_allocation?: string | null
+          resource_requirements?: string | null
+          review_date: string
+          review_period_end?: string | null
+          review_period_start?: string | null
+          review_status?: string | null
+          strategic_decisions?: string | null
+          strengths?: string | null
+          system_effectiveness_rating?: number | null
+          tests_conducted?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attendees?: Json | null
+          corrective_actions_closed?: number | null
+          created_at?: string
+          evidence_attachments?: Json | null
+          id?: string
+          improvement_areas?: string | null
+          incidents_count?: number | null
+          objective_updates?: string | null
+          objectives_achievement_percentage?: number | null
+          policy_changes?: string | null
+          report_generated?: boolean | null
+          report_generated_at?: string | null
+          resource_allocation?: string | null
+          resource_requirements?: string | null
+          review_date?: string
+          review_period_end?: string | null
+          review_period_start?: string | null
+          review_status?: string | null
+          strategic_decisions?: string | null
+          strengths?: string | null
+          system_effectiveness_rating?: number | null
+          tests_conducted?: number | null
           updated_at?: string
           user_id?: string
         }
