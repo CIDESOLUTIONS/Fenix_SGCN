@@ -410,6 +410,45 @@ export type Database = {
         }
         Relationships: []
       }
+      process_strategy_evaluations: {
+        Row: {
+          created_at: string
+          criteria_id: string | null
+          evaluated_at: string
+          id: string
+          notes: string | null
+          process_id: string | null
+          score: number
+          strategy_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          criteria_id?: string | null
+          evaluated_at?: string
+          id?: string
+          notes?: string | null
+          process_id?: string | null
+          score: number
+          strategy_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          criteria_id?: string | null
+          evaluated_at?: string
+          id?: string
+          notes?: string | null
+          process_id?: string | null
+          score?: number
+          strategy_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           company_name: string | null
@@ -501,6 +540,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      strategy_criteria: {
+        Row: {
+          created_at: string
+          criteria_name: string
+          criteria_type: string | null
+          description: string | null
+          id: string
+          max_value: number | null
+          min_value: number | null
+          scale_description: Json | null
+          updated_at: string
+          user_id: string
+          weight: number
+        }
+        Insert: {
+          created_at?: string
+          criteria_name: string
+          criteria_type?: string | null
+          description?: string | null
+          id?: string
+          max_value?: number | null
+          min_value?: number | null
+          scale_description?: Json | null
+          updated_at?: string
+          user_id: string
+          weight?: number
+        }
+        Update: {
+          created_at?: string
+          criteria_name?: string
+          criteria_type?: string | null
+          description?: string | null
+          id?: string
+          max_value?: number | null
+          min_value?: number | null
+          scale_description?: Json | null
+          updated_at?: string
+          user_id?: string
+          weight?: number
+        }
+        Relationships: []
       }
     }
     Views: {

@@ -4,6 +4,7 @@ import {
   AlertTriangle, 
   BarChart3, 
   TrendingUp,
+  Target,
   Shield,
   Settings,
   TestTube,
@@ -36,6 +37,7 @@ const gestionItems = [
   { title: "Análisis de Riesgos", url: "/risk-analysis", icon: AlertTriangle },
   { title: "Análisis de Impacto (BIA)", url: "/business-impact-analysis", icon: BarChart3 },
   { title: "Estrategias de Continuidad", url: "/continuity-strategies", icon: TrendingUp },
+  { title: "Selección de Estrategias", url: "/strategy-selection", icon: Target },
 ];
 
 const planesItems = [
