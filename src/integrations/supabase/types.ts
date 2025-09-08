@@ -326,6 +326,62 @@ export type Database = {
           },
         ]
       }
+      corrective_actions: {
+        Row: {
+          action_description: string
+          assigned_email: string | null
+          assigned_to: string | null
+          completion_date: string | null
+          created_at: string
+          due_date: string | null
+          id: string
+          priority: string | null
+          progress_notes: string | null
+          status: string | null
+          test_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          action_description: string
+          assigned_email?: string | null
+          assigned_to?: string | null
+          completion_date?: string | null
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          priority?: string | null
+          progress_notes?: string | null
+          status?: string | null
+          test_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          action_description?: string
+          assigned_email?: string | null
+          assigned_to?: string | null
+          completion_date?: string | null
+          created_at?: string
+          due_date?: string | null
+          id?: string
+          priority?: string | null
+          progress_notes?: string | null
+          status?: string | null
+          test_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "corrective_actions_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "continuity_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       demo_requests: {
         Row: {
           company_name: string | null
@@ -585,6 +641,65 @@ export type Database = {
           weight?: number
         }
         Relationships: []
+      }
+      test_execution_steps: {
+        Row: {
+          actual_result: string | null
+          created_at: string
+          executed_at: string | null
+          executed_by: string | null
+          execution_time: number | null
+          expected_result: string | null
+          id: string
+          notes: string | null
+          status: string | null
+          step_description: string
+          step_number: number
+          test_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          actual_result?: string | null
+          created_at?: string
+          executed_at?: string | null
+          executed_by?: string | null
+          execution_time?: number | null
+          expected_result?: string | null
+          id?: string
+          notes?: string | null
+          status?: string | null
+          step_description: string
+          step_number: number
+          test_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          actual_result?: string | null
+          created_at?: string
+          executed_at?: string | null
+          executed_by?: string | null
+          execution_time?: number | null
+          expected_result?: string | null
+          id?: string
+          notes?: string | null
+          status?: string | null
+          step_description?: string
+          step_number?: number
+          test_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "test_execution_steps_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "continuity_tests"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
