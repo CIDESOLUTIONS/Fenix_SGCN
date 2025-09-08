@@ -994,10 +994,51 @@ const BusinessImpactAnalysis = () => {
                   </Card>
                 </div>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Distribución de Criticidad</CardTitle>
-                  </CardHeader>
+                <div className="grid gap-6 md:grid-cols-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Distribución de Criticidad</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <div className="h-48 bg-gradient-to-br from-blue-50 to-green-50 rounded-lg border-2 border-dashed border-muted-foreground/25 flex flex-col items-center justify-center">
+                          <Building2 className="h-12 w-12 text-muted-foreground mb-2" />
+                          <span className="text-sm text-muted-foreground text-center">
+                            Visualización interactiva de dependencias entre procesos
+                          </span>
+                        </div>
+                        
+                        <div className="grid grid-cols-3 gap-2 text-xs">
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <span>Crítico</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <span>Alto</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
+                            <span>Bajo</span>
+                          </div>
+                        </div>
+
+                        <Button className="w-full" variant="outline">
+                          <Building2 className="h-4 w-4 mr-2" />
+                          Generar Mapa de Dependencias
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Building2 className="h-5 w-5" />
+                        Mapa de Dependencias Visual
+                      </CardTitle>
+                    </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       {['critical', 'high', 'medium', 'low'].map((level) => {

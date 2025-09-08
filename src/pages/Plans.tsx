@@ -385,23 +385,24 @@ export default function Plans() {
             </Button>
           </div>
 
-          <div className="grid gap-4">
-            {plans.length === 0 ? (
-              <Card>
-                <CardContent className="flex flex-col items-center justify-center h-64">
-                  <FileText className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">No hay planes creados</h3>
-                  <p className="text-muted-foreground text-center mb-4">
-                    Comienza creando tu primer Plan de Manejo de Crisis para establecer las bases de tu Sistema de Gestión de Continuidad de Negocio.
-                  </p>
-                  <Button onClick={() => openDialog("plan")}>
-                    <Plus className="mr-2 h-4 w-4" />
-                    Crear Primer Plan
-                  </Button>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="lg:col-span-2">
+              {plans.length === 0 ? (
+                <Card>
+                  <CardContent className="flex flex-col items-center justify-center h-64">
+                    <FileText className="h-12 w-12 text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-medium mb-2">No hay planes creados</h3>
+                    <p className="text-muted-foreground text-center mb-4">
+                      Comienza creando tu primer Plan de Manejo de Crisis para establecer las bases de tu Sistema de Gestión de Continuidad de Negocio.
+                    </p>
+                    <Button onClick={() => openDialog("plan")}>
+                      <Plus className="mr-2 h-4 w-4" />
+                      Crear Primer Plan
+                    </Button>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2">
                 {plans.map((plan) => (
                   <Card key={plan.id} className="hover:shadow-md transition-shadow">
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -452,8 +453,54 @@ export default function Plans() {
                     </CardContent>
                   </Card>
                 ))}
-              </div>
-            )}
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    Editor Visual Drag & Drop
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="h-48 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg border-2 border-dashed border-muted-foreground/25 flex flex-col items-center justify-center">
+                      <FileText className="h-8 w-8 text-muted-foreground mb-2" />
+                      <span className="text-sm text-muted-foreground text-center">
+                        Constructor visual de planes con elementos arrastrables
+                      </span>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button variant="outline" size="sm">
+                        <Plus className="h-3 w-3 mr-1" />
+                        Procedimiento
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <User className="h-3 w-3 mr-1" />
+                        Responsable
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <AlertTriangle className="h-3 w-3 mr-1" />
+                        Activador
+                      </Button>
+                      <Button variant="outline" size="sm">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        Verificación
+                      </Button>
+                    </div>
+
+                    <Button className="w-full">
+                      <Edit className="h-4 w-4 mr-2" />
+                      Abrir Editor Visual
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
           {/* Dialog para crear/editar/ver */}

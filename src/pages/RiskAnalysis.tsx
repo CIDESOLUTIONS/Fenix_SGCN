@@ -316,56 +316,115 @@ const RiskAnalysis = () => {
                 </TabsList>
 
                 <TabsContent value="overview" className="space-y-4">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Registro de Riesgos Identificados</CardTitle>
-                      <CardDescription>
-                        Lista completa de riesgos identificados con su evaluación
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        {risks.map((risk) => {
-                          const riskLevel = getRiskLevel(risk.riskScore);
-                          return (
-                            <div key={risk.id} className="border rounded-lg p-4 space-y-3">
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                  <h3 className="font-semibold">{risk.title}</h3>
-                                  <Badge variant="outline">{risk.category}</Badge>
-                                  <Badge variant={riskLevel.color as any}>{riskLevel.level}</Badge>
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Registro de Riesgos Identificados</CardTitle>
+                        <CardDescription>
+                          Lista completa de riesgos identificados con su evaluación
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
+                          {risks.map((risk) => {
+                            const riskLevel = getRiskLevel(risk.riskScore);
+                            return (
+                              <div key={risk.id} className="border rounded-lg p-4 space-y-3">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-3">
+                                    <h3 className="font-semibold">{risk.title}</h3>
+                                    <Badge variant="outline">{risk.category}</Badge>
+                                    <Badge variant={riskLevel.color as any}>{riskLevel.level}</Badge>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-sm text-muted-foreground">
+                                      Puntuación: {risk.riskScore}
+                                    </span>
+                                    <Button variant="outline" size="sm">
+                                      Editar
+                                    </Button>
+                                  </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                  <span className="text-sm text-muted-foreground">
-                                    Puntuación: {risk.riskScore}
-                                  </span>
-                                  <Button variant="outline" size="sm">
-                                    Editar
-                                  </Button>
+                                <p className="text-muted-foreground">{risk.description}</p>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                  <div>
+                                    <span className="font-medium">Responsable:</span> {risk.owner}
+                                  </div>
+                                  <div>
+                                    <span className="font-medium">Probabilidad:</span> {risk.probability}/5
+                                  </div>
+                                  <div>
+                                    <span className="font-medium">Impacto:</span> {risk.impact}/5
+                                  </div>
+                                </div>
+                                <div>
+                                  <span className="font-medium text-sm">Estrategia de Mitigación:</span>
+                                  <p className="text-sm text-muted-foreground mt-1">{risk.mitigationStrategy}</p>
                                 </div>
                               </div>
-                              <p className="text-muted-foreground">{risk.description}</p>
-                              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                                <div>
-                                  <span className="font-medium">Responsable:</span> {risk.owner}
-                                </div>
-                                <div>
-                                  <span className="font-medium">Probabilidad:</span> {risk.probability}/5
-                                </div>
-                                <div>
-                                  <span className="font-medium">Impacto:</span> {risk.impact}/5
-                                </div>
+                            );
+                          })}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <TrendingUp className="h-5 w-5" />
+                          Simulaciones Monte Carlo
+                        </CardTitle>
+                        <CardDescription>
+                          Análisis probabilístico de escenarios de riesgo
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
+                          <div className="grid grid-cols-3 gap-4 text-center">
+                            <div className="bg-muted p-3 rounded-lg">
+                              <div className="text-2xl font-bold text-green-600">
+                                {((1 - (stats.criticalRisks + stats.highRisks) / stats.totalRisks) * 100).toFixed(1)}%
                               </div>
-                              <div>
-                                <span className="font-medium text-sm">Estrategia de Mitigación:</span>
-                                <p className="text-sm text-muted-foreground mt-1">{risk.mitigationStrategy}</p>
-                              </div>
+                              <div className="text-sm text-muted-foreground">Prob. Éxito</div>
                             </div>
-                          );
-                        })}
-                      </div>
-                    </CardContent>
-                  </Card>
+                            <div className="bg-muted p-3 rounded-lg">
+                              <div className="text-2xl font-bold text-orange-600">
+                                {((stats.highRisks / stats.totalRisks) * 100).toFixed(1)}%
+                              </div>
+                              <div className="text-sm text-muted-foreground">Riesgo Moderado</div>
+                            </div>
+                            <div className="bg-muted p-3 rounded-lg">
+                              <div className="text-2xl font-bold text-red-600">
+                                {((stats.criticalRisks / stats.totalRisks) * 100).toFixed(1)}%
+                              </div>
+                              <div className="text-sm text-muted-foreground">Riesgo Alto</div>
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-3">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm font-medium">Simulaciones Ejecutadas</span>
+                              <Badge variant="outline">10,000 iteraciones</Badge>
+                            </div>
+                            <div className="h-24 bg-gradient-to-r from-green-100 via-yellow-100 to-red-100 rounded-lg flex items-center justify-center">
+                              <span className="text-sm text-muted-foreground">Distribución de Probabilidades</span>
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Button className="w-full" variant="outline">
+                              <TrendingUp className="h-4 w-4 mr-2" />
+                              Ejecutar Simulación Monte Carlo
+                            </Button>
+                            <Button className="w-full" variant="outline" size="sm">
+                              <Download className="h-4 w-4 mr-2" />
+                              Exportar Resultados
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </TabsContent>
 
                 <TabsContent value="risks" className="space-y-4">

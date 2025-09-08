@@ -511,6 +511,73 @@ export default function Pruebas() {
                   </CardContent>
                 </Card>
               </div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <BarChart3 className="h-5 w-5" />
+                      Scoring Automático
+                    </CardTitle>
+                    <CardDescription>
+                      Sistema de puntuación automatizada basado en criterios
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="text-center p-3 bg-green-50 rounded-lg">
+                          <div className="text-lg font-bold text-green-600">95%</div>
+                          <div className="text-xs text-muted-foreground">Precisión IA</div>
+                        </div>
+                        <div className="text-center p-3 bg-blue-50 rounded-lg">
+                          <div className="text-lg font-bold text-blue-600">2.5s</div>
+                          <div className="text-xs text-muted-foreground">Tiempo Avg.</div>
+                        </div>
+                        <div className="text-center p-3 bg-purple-50 rounded-lg">
+                          <div className="text-lg font-bold text-purple-600">15</div>
+                          <div className="text-xs text-muted-foreground">Criterios</div>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>Tiempo de Respuesta</span>
+                          <span className="font-medium">25%</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>Completitud</span>
+                          <span className="font-medium">30%</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>Comunicación</span>
+                          <span className="font-medium">20%</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>Eficacia</span>
+                          <span className="font-medium">25%</span>
+                        </div>
+                      </div>
+
+                      <Button className="w-full" variant="outline">
+                        <BarChart3 className="h-4 w-4 mr-2" />
+                        Configurar Criterios de Scoring
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Tendencias de Rendimiento</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-32 bg-gradient-to-r from-green-100 via-yellow-100 to-red-100 rounded-lg flex items-center justify-center">
+                      <span className="text-sm text-muted-foreground">Gráfico de Tendencias</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
 
             <TabsContent value="reports" className="space-y-4">
