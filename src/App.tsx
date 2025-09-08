@@ -8,6 +8,7 @@ import { SettingsProvider } from "./contexts/SettingsContext";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import Planeacion from "./pages/Planeacion";
 import RiskAnalysis from "./pages/RiskAnalysis";
 import BusinessImpactAnalysis from "./pages/BusinessImpactAnalysis";
 import Settings from "./pages/Settings";
@@ -27,6 +28,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/planeacion" element={<Planeacion />} />
               <Route path="/risk-analysis" element={<RiskAnalysis />} />
               <Route path="/business-impact-analysis" element={<BusinessImpactAnalysis />} />
               <Route path="/settings" element={<Settings />} />
