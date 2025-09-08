@@ -6,6 +6,9 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
+import AppHeader from "@/components/AppHeader";
 import { AlertCircle, Settings2, Shield, Database, Users, CheckCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { toast } from '@/hooks/use-toast';
@@ -93,11 +96,18 @@ const Settings = () => {
   };
 
   return (
-    <div className="container mx-auto py-6 space-y-6">
-      <div className="flex items-center gap-2 mb-6">
-        <Settings2 className="h-6 w-6" />
-        <h1 className="text-2xl font-bold">Configuración del Sistema</h1>
-      </div>
+    <SidebarProvider>
+      <div className="flex h-screen w-full">
+        <AppSidebar />
+        <SidebarInset className="flex-1">
+          <AppHeader />
+          <main className="flex-1 overflow-auto">
+            <div className="p-6">
+              <div className="max-w-7xl mx-auto space-y-6">
+                <div className="flex items-center gap-2 mb-6">
+                  <Settings2 className="h-6 w-6" />
+                  <h1 className="text-2xl font-bold">Configuración del Sistema</h1>
+                </div>
 
       <Tabs defaultValue="authentication" className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
@@ -388,8 +398,13 @@ const Settings = () => {
             </CardContent>
           </Card>
         </TabsContent>
-      </Tabs>
-    </div>
+                </Tabs>
+              </div>
+            </div>
+          </main>
+        </SidebarInset>
+      </div>
+    </SidebarProvider>
   );
 };
 

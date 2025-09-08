@@ -11,6 +11,9 @@ import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
+import AppHeader from "@/components/AppHeader";
 import {
   AlertTriangle,
   CheckCircle,
@@ -339,15 +342,22 @@ const MantenimientoMejora = () => {
   });
 
   return (
-    <div className="container mx-auto py-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Settings className="h-6 w-6" />
-          <h1 className="text-2xl font-bold">Mantenimiento y Mejora Continua</h1>
-        </div>
-        <Button onClick={generateManagementReport} disabled={isLoading}>
-          <FileText className="h-4 w-4 mr-2" />
-          Generar Reporte de Dirección
+    <SidebarProvider>
+      <div className="flex h-screen w-full">
+        <AppSidebar />
+        <SidebarInset className="flex-1">
+          <AppHeader />
+          <main className="flex-1 overflow-auto">
+            <div className="p-6">
+              <div className="max-w-7xl mx-auto space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Settings className="h-6 w-6" />
+                    <h1 className="text-2xl font-bold">Mantenimiento y Mejora Continua</h1>
+                  </div>
+                  <Button onClick={generateManagementReport} disabled={isLoading}>
+                    <FileText className="h-4 w-4 mr-2" />
+                    Generar Reporte de Dirección
         </Button>
       </div>
 
@@ -977,9 +987,14 @@ const MantenimientoMejora = () => {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
-    </div>
+                </TabsContent>
+              </Tabs>
+              </div>
+            </div>
+          </main>
+        </SidebarInset>
+      </div>
+    </SidebarProvider>
   );
 };
 
