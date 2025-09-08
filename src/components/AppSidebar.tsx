@@ -42,9 +42,9 @@ const gestionItems = [
 
 const planesItems = [
   { title: "Gestión de Planes", url: "/plans", icon: Shield },
-  { title: "Planes IRP", url: "/planes-irp", icon: Building },
-  { title: "Planes DRP", url: "/planes-drp", icon: Settings },
-  { title: "Planes BCP", url: "/planes-bcp", icon: Clipboard },
+  { title: "Planes IRP", url: "/plans", icon: Building },
+  { title: "Planes DRP", url: "/plans", icon: Settings },
+  { title: "Planes BCP", url: "/plans", icon: Clipboard },
 ];
 
 const validacionItems = [
