@@ -35,7 +35,7 @@ const gestionItems = [
   { title: "Planeación", url: "/planeacion", icon: FileText },
   { title: "Análisis de Riesgos", url: "/risk-analysis", icon: AlertTriangle },
   { title: "Análisis de Impacto (BIA)", url: "/business-impact-analysis", icon: BarChart3 },
-  { title: "Estrategias de Continuidad", url: "/estrategias", icon: TrendingUp },
+  { title: "Estrategias de Continuidad", url: "/continuity-strategies", icon: TrendingUp },
 ];
 
 const planesItems = [
