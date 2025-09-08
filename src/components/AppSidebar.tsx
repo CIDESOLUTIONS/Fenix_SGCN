@@ -13,6 +13,7 @@ import {
   Clipboard
 } from "lucide-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useSettings } from "@/contexts/SettingsContext";
 
 import {
   Sidebar,
@@ -28,37 +29,38 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-// Dashboard - Primera opción
-const dashboardItems = [
-  { title: "Dashboard Ejecutivo", url: "/dashboard", icon: Home },
-];
-
-// Módulos SGCN - Basados en la landing page
-const sgcnModules = [
-  { title: "1. Planeación y Gobierno", url: "/planeacion", icon: FileText },
-  { title: "2. Análisis de Riesgos (ARA)", url: "/risk-analysis", icon: AlertTriangle },
-  { title: "3. Análisis de Impacto (BIA)", url: "/business-impact-analysis", icon: BarChart3 },
-  { title: "4. Escenarios y Estrategias", url: "/continuity-strategies", icon: TrendingUp },
-  { title: "5. Planes de Continuidad", url: "/plans", icon: Shield },
-  { title: "6. Pruebas de Continuidad", url: "/pruebas", icon: TestTube },
-  { title: "7. Mejora Continua", url: "/mantenimiento-mejora", icon: Users },
-];
-
-// Herramientas auxiliares
-const auxiliaryItems = [
-  { title: "Criterios y Ponderación", url: "/strategy-criteria", icon: Target },
-];
-
-// Configuración - Última opción
-const configItems = [
-  { title: "Configuración", url: "/settings", icon: Settings },
-];
-
 export function AppSidebar() {
   const navigate = useNavigate();
   const { state } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
+  const { t } = useSettings();
+
+  // Dashboard - Primera opción
+  const dashboardItems = [
+    { title: t('sidebar.dashboard'), url: "/dashboard", icon: Home },
+  ];
+
+  // Módulos SGCN - Basados en la landing page
+  const sgcnModules = [
+    { title: `1. ${t('sidebar.planeacion')}`, url: "/planeacion", icon: FileText },
+    { title: `2. ${t('sidebar.risk_analysis')}`, url: "/risk-analysis", icon: AlertTriangle },
+    { title: `3. ${t('sidebar.bia')}`, url: "/business-impact-analysis", icon: BarChart3 },
+    { title: `4. ${t('sidebar.strategies')}`, url: "/continuity-strategies", icon: TrendingUp },
+    { title: `5. ${t('sidebar.plans')}`, url: "/plans", icon: Shield },
+    { title: `6. ${t('sidebar.tests')}`, url: "/pruebas", icon: TestTube },
+    { title: `7. ${t('sidebar.maintenance')}`, url: "/mantenimiento-mejora", icon: Users },
+  ];
+
+  // Herramientas auxiliares
+  const auxiliaryItems = [
+    { title: t('sidebar.criteria'), url: "/strategy-criteria", icon: Target },
+  ];
+
+  // Configuración - Última opción
+  const configItems = [
+    { title: t('sidebar.settings'), url: "/settings", icon: Settings },
+  ];
 
   const isActive = (path: string) => currentPath === path;
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
@@ -108,7 +110,7 @@ export function AppSidebar() {
 
         {/* Módulos SGCN - Sección principal */}
         <SidebarGroup>
-          <SidebarGroupLabel>Módulos SGCN</SidebarGroupLabel>
+          <SidebarGroupLabel>{t('dashboard.modules')}</SidebarGroupLabel>
           <SidebarGroupContent>
             {renderMenuItems(sgcnModules)}
           </SidebarGroupContent>

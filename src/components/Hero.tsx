@@ -2,8 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Shield, Zap, Globe } from "lucide-react";
 import heroDashboard from "@/assets/hero-dashboard.png";
+import { useSettings } from "@/contexts/SettingsContext";
 
 const Hero = () => {
+  const { t } = useSettings();
+  
   return (
     <section className="relative overflow-hidden bg-gradient-hero pt-20 pb-16 md:pt-24 md:pb-20">
       <div className="container mx-auto px-6 lg:px-8">
@@ -16,27 +19,25 @@ const Hero = () => {
               </Badge>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-                La Plataforma SaaS
-                <span className="bg-gradient-primary bg-clip-text text-transparent"> más Completa</span> para 
-                <span className="bg-gradient-primary bg-clip-text text-transparent"> SGCN</span>
+                {t('hero.title1')}
+                <span className="bg-gradient-primary bg-clip-text text-transparent"> {t('hero.title2')}</span> {t('hero.title3')} 
+                <span className="bg-gradient-primary bg-clip-text text-transparent"> {t('hero.title4')}</span>
               </h1>
               
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Implementa, opera, audita y mejora tu Sistema de Gestión de Continuidad del Negocio 
-                con total conformidad a estándares internacionales. La solución empresarial que supera 
-                a Fusion, Veoci y MetricStream.
+                {t('hero.description')}
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="hero" size="lg" className="text-lg px-8" asChild>
                 <a href="/auth">
-                  Comenzar Prueba Gratuita
+                  {t('hero.start_trial')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
               <Button variant="professional" size="lg" className="text-lg px-8">
-                Ver Demo Interactiva
+                {t('hero.demo')}
               </Button>
             </div>
 
@@ -44,15 +45,15 @@ const Hero = () => {
             <div className="flex flex-wrap items-center gap-6 pt-6">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Shield className="h-4 w-4 text-primary" />
-                <span>99.95% SLA</span>
+                <span>{t('hero.sla')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Zap className="h-4 w-4 text-secondary" />
-                <span>API &lt; 200ms</span>
+                <span>{t('hero.api')}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Globe className="h-4 w-4 text-primary" />
-                <span>Multi-idioma</span>
+                <span>{t('hero.multilang')}</span>
               </div>
             </div>
           </div>

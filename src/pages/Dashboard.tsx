@@ -33,6 +33,7 @@ import {
   Cell
 } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { useSettings } from "@/contexts/SettingsContext";
 
 interface UserProfile {
   full_name: string;
@@ -45,6 +46,7 @@ const Dashboard = () => {
   const { user, signOut, loading } = useAuth();
   const navigate = useNavigate();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const { t } = useSettings();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -124,70 +126,70 @@ const Dashboard = () => {
             <div className="p-6">
               <div className="max-w-7xl mx-auto space-y-6">
                   <h1 className="text-lg font-semibold text-foreground">Fenix SGCN</h1>
-                  <Badge variant="outline" className="text-xs">
-                    Sistema Activo
-                  </Badge>
-                {/* Welcome Section */}
-                <div>
-                  <h2 className="text-2xl font-bold text-foreground">
-                    Bienvenido, {userProfile?.full_name?.split(' ')[0]}
-                </h2>
-                <p className="text-muted-foreground">
-                  Vista consolidada del estado del Sistema de Gestión de Continuidad del Negocio.
-                </p>
-              </div>
+                   <Badge variant="outline" className="text-xs">
+                     {t('dashboard.system_active')}
+                   </Badge>
+                 {/* Welcome Section */}
+                 <div>
+                   <h2 className="text-2xl font-bold text-foreground">
+                     {t('dashboard.welcome')}, {userProfile?.full_name?.split(' ')[0]}
+                 </h2>
+                 <p className="text-muted-foreground">
+                   {t('dashboard.welcome_description')}
+                 </p>
+               </div>
 
               {/* KPI Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Procesos Críticos</CardTitle>
+                    <CardTitle className="text-sm font-medium">{t('dashboard.critical_processes')}</CardTitle>
                     <Building className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold text-primary">12</div>
-                    <p className="text-xs text-muted-foreground">
-                      Identificados en el BIA
-                    </p>
+                     <p className="text-xs text-muted-foreground">
+                       {t('dashboard.identified_in_bia')}
+                     </p>
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Riesgos Altos/Críticos</CardTitle>
+                    <CardTitle className="text-sm font-medium">{t('dashboard.high_critical_risks')}</CardTitle>
                     <AlertTriangle className="h-4 w-4 text-destructive" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold text-destructive">5</div>
-                    <p className="text-xs text-muted-foreground">
-                      Antes de tratamiento
-                    </p>
+                     <p className="text-xs text-muted-foreground">
+                       {t('dashboard.before_treatment')}
+                     </p>
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Planes Desarrollados</CardTitle>
+                    <CardTitle className="text-sm font-medium">{t('dashboard.developed_plans')}</CardTitle>
                     <FileCheck className="h-4 w-4 text-secondary" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold text-secondary">8</div>
-                    <p className="text-xs text-muted-foreground">
-                      Pendiente de aprobación
-                    </p>
+                     <p className="text-xs text-muted-foreground">
+                       {t('dashboard.pending_approval')}
+                     </p>
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Última Prueba</CardTitle>
+                    <CardTitle className="text-sm font-medium">{t('dashboard.last_test')}</CardTitle>
                     <Clock className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">15/11/25</div>
-                    <p className="text-xs text-muted-foreground">
-                      Próxima: 28/02/26
-                    </p>
+                     <p className="text-xs text-muted-foreground">
+                       {t('dashboard.next')}: 28/02/26
+                     </p>
                   </CardContent>
                 </Card>
               </div>
@@ -324,10 +326,10 @@ const Dashboard = () => {
               {/* Modules Section */}
               <Card>
                 <CardHeader>
-                  <CardTitle>7 Módulos SGCN Especializados</CardTitle>
-                  <CardDescription>
-                    Conformes a ISO 22301, ISO 31000 y mejores prácticas internacionales
-                  </CardDescription>
+                   <CardTitle>{t('dashboard.modules_title')}</CardTitle>
+                   <CardDescription>
+                     {t('dashboard.modules_description')}
+                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
