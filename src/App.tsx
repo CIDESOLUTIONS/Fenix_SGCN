@@ -13,6 +13,7 @@ import RiskAnalysis from "./pages/RiskAnalysis";
 import BusinessImpactAnalysis from "./pages/BusinessImpactAnalysis";
 import ContinuityStrategies from "./pages/ContinuityStrategies";
 import StrategyCriteria from "./pages/StrategyCriteria";
+import Plans from "./pages/Plans";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -35,6 +36,7 @@ const App = () => (
               <Route path="/business-impact-analysis" element={<BusinessImpactAnalysis />} />
               <Route path="/continuity-strategies" element={<ContinuityStrategies />} />
               <Route path="/strategy-criteria" element={<StrategyCriteria />} />
+              <Route path="/plans" element={<Plans />} />
               <Route path="/settings" element={<Settings />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

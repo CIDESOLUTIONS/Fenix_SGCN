@@ -41,7 +41,7 @@ const gestionItems = [
 ];
 
 const planesItems = [
-  { title: "Planes de Continuidad", url: "/planes-continuidad", icon: Shield },
+  { title: "Gestión de Planes", url: "/plans", icon: Shield },
   { title: "Planes IRP", url: "/planes-irp", icon: Building },
   { title: "Planes DRP", url: "/planes-drp", icon: Settings },
   { title: "Planes BCP", url: "/planes-bcp", icon: Clipboard },
