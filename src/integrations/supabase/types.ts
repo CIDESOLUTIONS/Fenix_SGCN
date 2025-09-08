@@ -86,9 +86,17 @@ export type Database = {
           id: string
           name: string
           raci_accountable: string | null
+          raci_accountable_email: string | null
+          raci_accountable_position: string | null
           raci_consulted: string | null
+          raci_consulted_email: string | null
+          raci_consulted_position: string | null
           raci_informed: string | null
+          raci_informed_email: string | null
+          raci_informed_position: string | null
           raci_responsible: string | null
+          raci_responsible_email: string | null
+          raci_responsible_position: string | null
           responsible_person: string | null
           updated_at: string
           user_id: string
@@ -102,9 +110,17 @@ export type Database = {
           id?: string
           name: string
           raci_accountable?: string | null
+          raci_accountable_email?: string | null
+          raci_accountable_position?: string | null
           raci_consulted?: string | null
+          raci_consulted_email?: string | null
+          raci_consulted_position?: string | null
           raci_informed?: string | null
+          raci_informed_email?: string | null
+          raci_informed_position?: string | null
           raci_responsible?: string | null
+          raci_responsible_email?: string | null
+          raci_responsible_position?: string | null
           responsible_person?: string | null
           updated_at?: string
           user_id: string
@@ -118,9 +134,17 @@ export type Database = {
           id?: string
           name?: string
           raci_accountable?: string | null
+          raci_accountable_email?: string | null
+          raci_accountable_position?: string | null
           raci_consulted?: string | null
+          raci_consulted_email?: string | null
+          raci_consulted_position?: string | null
           raci_informed?: string | null
+          raci_informed_email?: string | null
+          raci_informed_position?: string | null
           raci_responsible?: string | null
+          raci_responsible_email?: string | null
+          raci_responsible_position?: string | null
           responsible_person?: string | null
           updated_at?: string
           user_id?: string

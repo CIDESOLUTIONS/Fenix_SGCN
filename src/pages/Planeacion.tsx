@@ -284,14 +284,14 @@ export default function Planeacion() {
 
       const transformedProcesses = processesData?.map(process => ({
         ...process,
-        raci_responsible_email: process.raci_responsible_email || "",
-        raci_responsible_position: process.raci_responsible_position || "",
-        raci_accountable_email: process.raci_accountable_email || "",
-        raci_accountable_position: process.raci_accountable_position || "",
-        raci_consulted_email: process.raci_consulted_email || "",
-        raci_consulted_position: process.raci_consulted_position || "",
-        raci_informed_email: process.raci_informed_email || "",
-        raci_informed_position: process.raci_informed_position || "",
+        raci_responsible_email: "",
+        raci_responsible_position: "",
+        raci_accountable_email: "",
+        raci_accountable_position: "",
+        raci_consulted_email: "",
+        raci_consulted_position: "",
+        raci_informed_email: "",
+        raci_informed_position: "",
         include_in_continuity: process.criticality_level === 'critical' || process.criticality_level === 'high'
       })) || [];
 
@@ -368,8 +368,16 @@ export default function Planeacion() {
 
       if (error) throw error;
 
-      const processWithContinuity = {
+      const processWithContinuity: BusinessProcess = {
         ...data,
+        raci_responsible_email: data.raci_responsible_email || "",
+        raci_responsible_position: data.raci_responsible_position || "",
+        raci_accountable_email: data.raci_accountable_email || "",
+        raci_accountable_position: data.raci_accountable_position || "",
+        raci_consulted_email: data.raci_consulted_email || "",
+        raci_consulted_position: data.raci_consulted_position || "",
+        raci_informed_email: data.raci_informed_email || "",
+        raci_informed_position: data.raci_informed_position || "",
         include_in_continuity: newProcess.include_in_continuity
       };
 
