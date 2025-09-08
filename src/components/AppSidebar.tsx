@@ -28,28 +28,29 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 
-const mainItems = [
-  { title: "Dashboard", url: "/dashboard", icon: Home },
+// Dashboard - Primera opción
+const dashboardItems = [
+  { title: "Dashboard Ejecutivo", url: "/dashboard", icon: Home },
 ];
 
-const gestionItems = [
-  { title: "Planeación", url: "/planeacion", icon: FileText },
-  { title: "Análisis de Riesgos", url: "/risk-analysis", icon: AlertTriangle },
-  { title: "Análisis de Impacto (BIA)", url: "/business-impact-analysis", icon: BarChart3 },
-  { title: "Estrategias de Continuidad", url: "/continuity-strategies", icon: TrendingUp },
+// Módulos SGCN - Basados en la landing page
+const sgcnModules = [
+  { title: "1. Planeación y Gobierno", url: "/planeacion", icon: FileText },
+  { title: "2. Análisis de Riesgos (ARA)", url: "/risk-analysis", icon: AlertTriangle },
+  { title: "3. Análisis de Impacto (BIA)", url: "/business-impact-analysis", icon: BarChart3 },
+  { title: "4. Escenarios y Estrategias", url: "/continuity-strategies", icon: TrendingUp },
+  { title: "5. Planes de Continuidad", url: "/plans", icon: Shield },
+  { title: "6. Pruebas de Continuidad", url: "/pruebas", icon: TestTube },
+  { title: "7. Mejora Continua", url: "/mantenimiento-mejora", icon: Users },
+];
+
+// Herramientas auxiliares
+const auxiliaryItems = [
   { title: "Criterios y Ponderación", url: "/strategy-criteria", icon: Target },
 ];
 
-const planesItems = [
-  { title: "Gestión de Planes", url: "/plans", icon: Shield },
-  { title: "Planes IRP", url: "/plans", icon: Building },
-  { title: "Planes DRP", url: "/plans", icon: Settings },
-  { title: "Planes BCP", url: "/plans", icon: Clipboard },
-];
-
-const validacionItems = [
-  { title: "Pruebas de Continuidad", url: "/pruebas", icon: TestTube },
-  { title: "Mantenimiento y Mejora", url: "/mantenimiento-mejora", icon: Settings },
+// Configuración - Última opción
+const configItems = [
   { title: "Configuración", url: "/settings", icon: Settings },
 ];
 
@@ -65,7 +66,7 @@ export function AppSidebar() {
 
   const collapsed = state === "collapsed";
 
-  const renderMenuItems = (items: typeof mainItems) => (
+  const renderMenuItems = (items: typeof dashboardItems) => (
     <SidebarMenu>
       {items.map((item) => (
         <SidebarMenuItem key={item.title}>
@@ -98,31 +99,33 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent className="px-2">
+        {/* Dashboard - Primera sección */}
         <SidebarGroup>
-          <SidebarGroupLabel>Principal</SidebarGroupLabel>
           <SidebarGroupContent>
-            {renderMenuItems(mainItems)}
+            {renderMenuItems(dashboardItems)}
           </SidebarGroupContent>
         </SidebarGroup>
 
+        {/* Módulos SGCN - Sección principal */}
         <SidebarGroup>
-          <SidebarGroupLabel>Gestión</SidebarGroupLabel>
+          <SidebarGroupLabel>Módulos SGCN</SidebarGroupLabel>
           <SidebarGroupContent>
-            {renderMenuItems(gestionItems)}
+            {renderMenuItems(sgcnModules)}
           </SidebarGroupContent>
         </SidebarGroup>
 
+        {/* Herramientas auxiliares */}
         <SidebarGroup>
-          <SidebarGroupLabel>Planes</SidebarGroupLabel>
+          <SidebarGroupLabel>Herramientas</SidebarGroupLabel>
           <SidebarGroupContent>
-            {renderMenuItems(planesItems)}
+            {renderMenuItems(auxiliaryItems)}
           </SidebarGroupContent>
         </SidebarGroup>
 
+        {/* Configuración - Última sección */}
         <SidebarGroup>
-          <SidebarGroupLabel>Validación</SidebarGroupLabel>
           <SidebarGroupContent>
-            {renderMenuItems(validacionItems)}
+            {renderMenuItems(configItems)}
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
