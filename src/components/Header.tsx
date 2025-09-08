@@ -3,9 +3,12 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import cideLogo from "@/assets/cide-logo.png";
 import phoenixLogo from "@/assets/phoenix-logo.png";
+import SettingsDropdown from "@/components/SettingsDropdown";
+import { useSettings } from "@/contexts/SettingsContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useSettings();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -25,26 +28,27 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-foreground hover:text-primary transition-smooth">
-              Características
+              {t('nav.features')}
             </a>
             <a href="#modules" className="text-foreground hover:text-primary transition-smooth">
-              Módulos
+              {t('nav.modules')}
             </a>
             <a href="#plans" className="text-foreground hover:text-primary transition-smooth">
-              Planes
+              {t('nav.plans')}
             </a>
             <a href="#demo" className="text-foreground hover:text-primary transition-smooth">
-              Demo
+              {t('nav.demo')}
             </a>
           </nav>
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
+            <SettingsDropdown />
             <Button variant="outline" size="sm" asChild>
-              <a href="/auth">Iniciar Sesión</a>
+              <a href="/auth">{t('auth.login')}</a>
             </Button>
             <Button variant="hero" size="sm" asChild>
-              <a href="/auth">Prueba Gratuita</a>
+              <a href="/auth">{t('auth.trial')}</a>
             </Button>
           </div>
 
@@ -62,23 +66,24 @@ const Header = () => {
           <div className="md:hidden border-t border-border">
             <nav className="flex flex-col space-y-4 p-6">
               <a href="#features" className="text-foreground hover:text-primary transition-smooth">
-                Características
+                {t('nav.features')}
               </a>
               <a href="#modules" className="text-foreground hover:text-primary transition-smooth">
-                Módulos
+                {t('nav.modules')}
               </a>
               <a href="#plans" className="text-foreground hover:text-primary transition-smooth">
-                Planes
+                {t('nav.plans')}
               </a>
               <a href="#demo" className="text-foreground hover:text-primary transition-smooth">
-                Demo
+                {t('nav.demo')}
               </a>
               <div className="flex flex-col space-y-3 pt-4 border-t border-border">
+                <SettingsDropdown />
                 <Button variant="outline" size="sm" asChild>
-                  <a href="/auth">Iniciar Sesión</a>
+                  <a href="/auth">{t('auth.login')}</a>
                 </Button>
                 <Button variant="hero" size="sm" asChild>
-                  <a href="/auth">Prueba Gratuita</a>
+                  <a href="/auth">{t('auth.trial')}</a>
                 </Button>
               </div>
             </nav>
