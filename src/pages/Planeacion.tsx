@@ -65,9 +65,17 @@ interface BusinessProcess {
   criticality_level: string;
   dependencies: string[];
   raci_responsible: string;
+  raci_responsible_email: string;
+  raci_responsible_position: string;
   raci_accountable: string;
+  raci_accountable_email: string;
+  raci_accountable_position: string;
   raci_consulted: string;
+  raci_consulted_email: string;
+  raci_consulted_position: string;
   raci_informed: string;
+  raci_informed_email: string;
+  raci_informed_position: string;
   include_in_continuity: boolean;
   created_at: string;
   updated_at: string;
@@ -124,9 +132,17 @@ export default function Planeacion() {
     criticality_level: "medium",
     dependencies: [""],
     raci_responsible: "",
+    raci_responsible_email: "",
+    raci_responsible_position: "",
     raci_accountable: "",
+    raci_accountable_email: "",
+    raci_accountable_position: "",
     raci_consulted: "",
+    raci_consulted_email: "",
+    raci_consulted_position: "",
     raci_informed: "",
+    raci_informed_email: "",
+    raci_informed_position: "",
     include_in_continuity: false
   });
 
@@ -268,6 +284,14 @@ export default function Planeacion() {
 
       const transformedProcesses = processesData?.map(process => ({
         ...process,
+        raci_responsible_email: process.raci_responsible_email || "",
+        raci_responsible_position: process.raci_responsible_position || "",
+        raci_accountable_email: process.raci_accountable_email || "",
+        raci_accountable_position: process.raci_accountable_position || "",
+        raci_consulted_email: process.raci_consulted_email || "",
+        raci_consulted_position: process.raci_consulted_position || "",
+        raci_informed_email: process.raci_informed_email || "",
+        raci_informed_position: process.raci_informed_position || "",
         include_in_continuity: process.criticality_level === 'critical' || process.criticality_level === 'high'
       })) || [];
 
@@ -358,9 +382,17 @@ export default function Planeacion() {
         criticality_level: "medium",
         dependencies: [""],
         raci_responsible: "",
+        raci_responsible_email: "",
+        raci_responsible_position: "",
         raci_accountable: "",
+        raci_accountable_email: "",
+        raci_accountable_position: "",
         raci_consulted: "",
+        raci_consulted_email: "",
+        raci_consulted_position: "",
         raci_informed: "",
+        raci_informed_email: "",
+        raci_informed_position: "",
         include_in_continuity: false
       });
       setIsDialogOpen(false);
@@ -1221,45 +1253,96 @@ export default function Planeacion() {
                           </SelectContent>
                         </Select>
                       </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="raci_responsible" className="text-right">RACI - R</Label>
-                        <Input
-                          id="raci_responsible"
-                          value={newProcess.raci_responsible}
-                          onChange={(e) => setNewProcess({...newProcess, raci_responsible: e.target.value})}
-                          className="col-span-3"
-                          placeholder="Responsable de ejecutar"
-                        />
+                      {/* RACI - Responsable */}
+                      <div className="col-span-4">
+                        <Label className="text-sm font-medium">RACI - Responsable (R)</Label>
+                        <div className="grid grid-cols-3 gap-2 mt-2">
+                          <Input
+                            value={newProcess.raci_responsible}
+                            onChange={(e) => setNewProcess({...newProcess, raci_responsible: e.target.value})}
+                            placeholder="Nombre completo"
+                          />
+                          <Input
+                            value={newProcess.raci_responsible_email}
+                            onChange={(e) => setNewProcess({...newProcess, raci_responsible_email: e.target.value})}
+                            placeholder="Correo electrónico"
+                            type="email"
+                          />
+                          <Input
+                            value={newProcess.raci_responsible_position}
+                            onChange={(e) => setNewProcess({...newProcess, raci_responsible_position: e.target.value})}
+                            placeholder="Cargo en la empresa"
+                          />
+                        </div>
                       </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="raci_accountable" className="text-right">RACI - A</Label>
-                        <Input
-                          id="raci_accountable"
-                          value={newProcess.raci_accountable}
-                          onChange={(e) => setNewProcess({...newProcess, raci_accountable: e.target.value})}
-                          className="col-span-3"
-                          placeholder="Responsable del resultado"
-                        />
+                      
+                      {/* RACI - Accountable */}
+                      <div className="col-span-4">
+                        <Label className="text-sm font-medium">RACI - Responsable del resultado (A)</Label>
+                        <div className="grid grid-cols-3 gap-2 mt-2">
+                          <Input
+                            value={newProcess.raci_accountable}
+                            onChange={(e) => setNewProcess({...newProcess, raci_accountable: e.target.value})}
+                            placeholder="Nombre completo"
+                          />
+                          <Input
+                            value={newProcess.raci_accountable_email}
+                            onChange={(e) => setNewProcess({...newProcess, raci_accountable_email: e.target.value})}
+                            placeholder="Correo electrónico"
+                            type="email"
+                          />
+                          <Input
+                            value={newProcess.raci_accountable_position}
+                            onChange={(e) => setNewProcess({...newProcess, raci_accountable_position: e.target.value})}
+                            placeholder="Cargo en la empresa"
+                          />
+                        </div>
                       </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="raci_consulted" className="text-right">RACI - C</Label>
-                        <Input
-                          id="raci_consulted"
-                          value={newProcess.raci_consulted}
-                          onChange={(e) => setNewProcess({...newProcess, raci_consulted: e.target.value})}
-                          className="col-span-3"
-                          placeholder="Consultado"
-                        />
+
+                      {/* RACI - Consulted */}
+                      <div className="col-span-4">
+                        <Label className="text-sm font-medium">RACI - Consultado (C)</Label>
+                        <div className="grid grid-cols-3 gap-2 mt-2">
+                          <Input
+                            value={newProcess.raci_consulted}
+                            onChange={(e) => setNewProcess({...newProcess, raci_consulted: e.target.value})}
+                            placeholder="Nombre completo"
+                          />
+                          <Input
+                            value={newProcess.raci_consulted_email}
+                            onChange={(e) => setNewProcess({...newProcess, raci_consulted_email: e.target.value})}
+                            placeholder="Correo electrónico"
+                            type="email"
+                          />
+                          <Input
+                            value={newProcess.raci_consulted_position}
+                            onChange={(e) => setNewProcess({...newProcess, raci_consulted_position: e.target.value})}
+                            placeholder="Cargo en la empresa"
+                          />
+                        </div>
                       </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="raci_informed" className="text-right">RACI - I</Label>
-                        <Input
-                          id="raci_informed"
-                          value={newProcess.raci_informed}
-                          onChange={(e) => setNewProcess({...newProcess, raci_informed: e.target.value})}
-                          className="col-span-3"
-                          placeholder="Informado"
-                        />
+
+                      {/* RACI - Informed */}
+                      <div className="col-span-4">
+                        <Label className="text-sm font-medium">RACI - Informado (I)</Label>
+                        <div className="grid grid-cols-3 gap-2 mt-2">
+                          <Input
+                            value={newProcess.raci_informed}
+                            onChange={(e) => setNewProcess({...newProcess, raci_informed: e.target.value})}
+                            placeholder="Nombre completo"
+                          />
+                          <Input
+                            value={newProcess.raci_informed_email}
+                            onChange={(e) => setNewProcess({...newProcess, raci_informed_email: e.target.value})}
+                            placeholder="Correo electrónico"
+                            type="email"
+                          />
+                          <Input
+                            value={newProcess.raci_informed_position}
+                            onChange={(e) => setNewProcess({...newProcess, raci_informed_position: e.target.value})}
+                            placeholder="Cargo en la empresa"
+                          />
+                        </div>
                       </div>
                       <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="include_continuity" className="text-right">{t.include_continuity}</Label>
