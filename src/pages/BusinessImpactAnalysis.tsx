@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import { Button } from "@/components/ui/button";
+import AppHeader from "@/components/AppHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -808,13 +808,14 @@ const BusinessImpactAnalysis = () => {
                           </div>
                         );
                       })}
-                    </div>
+                     </div>
                   </CardContent>
                 </Card>
               </TabsContent>
             </Tabs>
           </div>
         </main>
+        </SidebarInset>
       </div>
     </SidebarProvider>
   );

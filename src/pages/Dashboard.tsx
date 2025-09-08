@@ -18,8 +18,9 @@ import {
   LogOut
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
+import AppHeader from "@/components/AppHeader";
 import { 
   BarChart, 
   Bar, 
@@ -364,7 +365,7 @@ const Dashboard = () => {
               </Card>
             </div>
           </main>
-        </div>
+        </SidebarInset>
       </div>
     </SidebarProvider>
   );

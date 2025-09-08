@@ -3,7 +3,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useSettings } from "@/contexts/SettingsContext";
 import { supabase } from "@/integrations/supabase/client";
 import { AppSidebar } from "@/components/AppSidebar";
-import Header from "@/components/Header";
+import AppHeader from "@/components/AppHeader";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -542,9 +542,9 @@ export default function Planeacion() {
     return (
       <SidebarProvider>
         <div className="flex h-screen w-full">
-          <AppSidebar />
-          <SidebarInset className="flex-1">
-            <Header />
+        <AppSidebar />
+        <SidebarInset className="flex-1">
+          <AppHeader />
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
@@ -562,7 +562,7 @@ export default function Planeacion() {
       <div className="flex h-screen w-full">
         <AppSidebar />
         <SidebarInset className="flex-1">
-          <Header />
+          <AppHeader />
           <main className="flex-1 overflow-auto p-6">
             <div className="max-w-7xl mx-auto space-y-6">
               {/* Header */}
