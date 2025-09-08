@@ -55,6 +55,7 @@ const BusinessImpactAnalysis = () => {
   const { toast } = useToast();
   const [processes, setProcesses] = useState<BusinessProcess[]>([]);
   const [assessments, setAssessments] = useState<BIAAssessment[]>([]);
+  const [criteria, setCriteria] = useState<any[]>([]);
   const [selectedProcess, setSelectedProcess] = useState<BusinessProcess | null>(null);
   const [isProcessDialogOpen, setIsProcessDialogOpen] = useState(false);
   const [isBIADialogOpen, setIsBIADialogOpen] = useState(false);
@@ -527,6 +528,23 @@ const BusinessImpactAnalysis = () => {
                     </Table>
                   </CardContent>
                 </Card>
+              </TabsContent>
+
+              <TabsContent value="criteria" className="space-y-4">
+                <CriteriaManager 
+                  moduleType="bia" 
+                  onCriteriaChange={(newCriteria) => setCriteria(newCriteria)}
+                />
+              </TabsContent>
+
+              <TabsContent value="evaluation" className="space-y-4">
+                <EvaluationMatrix
+                  moduleType="bia"
+                  criteria={criteria}
+                  items={filteredAssessments}
+                  itemNameField="process_name"
+                  itemDescField="operational_impact"
+                />
               </TabsContent>
 
               <TabsContent value="assessments" className="space-y-6">

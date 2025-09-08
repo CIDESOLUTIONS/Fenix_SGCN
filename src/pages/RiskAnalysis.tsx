@@ -415,7 +415,24 @@ const RiskAnalysis = () => {
                       </div>
                     </CardContent>
                   </Card>
-                </TabsContent>
+              </TabsContent>
+
+              <TabsContent value="criteria" className="space-y-4">
+                <CriteriaManager 
+                  moduleType="risk" 
+                  onCriteriaChange={(newCriteria) => setCriteria(newCriteria)}
+                />
+              </TabsContent>
+
+              <TabsContent value="evaluation" className="space-y-4">
+                <EvaluationMatrix
+                  moduleType="risk"
+                  criteria={criteria}
+                  items={filteredRisks}
+                  itemNameField="risk_name"
+                  itemDescField="risk_description"
+                />
+              </TabsContent>
               </Tabs>
             </div>
           </main>
