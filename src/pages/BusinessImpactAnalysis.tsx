@@ -329,10 +329,12 @@ const BusinessImpactAnalysis = () => {
               </div>
             </div>
 
-            <Tabs defaultValue="processes" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-3">
+            <Tabs defaultValue="concepts" className="space-y-6">
+              <TabsList className="grid w-full grid-cols-5">
                 <TabsTrigger value="processes">Procesos de Negocio</TabsTrigger>
+                <TabsTrigger value="concepts">Conceptos BIA</TabsTrigger>
                 <TabsTrigger value="assessments">Evaluaciones BIA</TabsTrigger>
+                <TabsTrigger value="criteria">Criterios</TabsTrigger>
                 <TabsTrigger value="summary">Resumen Ejecutivo</TabsTrigger>
               </TabsList>
 
@@ -693,6 +695,27 @@ const BusinessImpactAnalysis = () => {
                     </Card>
                   </CardContent>
                 </Card>
+              </TabsContent>
+
+              <TabsContent value="criteria" className="space-y-4">
+                <CriteriaManager 
+                  moduleType="bia" 
+                  onCriteriaChange={(newCriteria) => setCriteria(newCriteria)}
+                />
+              </TabsContent>
+
+              <TabsContent value="evaluation" className="space-y-4">
+                <EvaluationMatrix
+                  moduleType="bia"
+                  criteria={criteria}
+                  items={assessments.map(assessment => ({
+                    id: assessment.id,
+                    process_name: `Process ${assessment.process_id}`,
+                    operational_impact: assessment.operational_impact
+                  }))}
+                  itemNameField="process_name"
+                  itemDescField="operational_impact"
+                />
               </TabsContent>
 
               <TabsContent value="criteria" className="space-y-4">
