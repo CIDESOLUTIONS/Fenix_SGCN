@@ -74,8 +74,9 @@ const Features = () => {
             Supera a la Competencia
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Funcionalidades que van más allá de Fusion, Veoci y MetricStream, 
-            con tecnología de vanguardia y cumplimiento total de estándares internacionales.
+            Plataforma integral con funcionalidades completas que cubren todo el ciclo de vida del SGCN. 
+            Interfaz intuitiva de fácil adopción y sistema robusto de gestión documental que garantiza 
+            trazabilidad total y cumplimiento de estándares internacionales.
           </p>
         </div>
 
