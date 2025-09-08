@@ -40,11 +40,11 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm">
-              Iniciar Sesión
+            <Button variant="outline" size="sm" asChild>
+              <a href="/auth">Iniciar Sesión</a>
             </Button>
-            <Button variant="hero" size="sm">
-              Prueba Gratuita
+            <Button variant="hero" size="sm" asChild>
+              <a href="/auth">Prueba Gratuita</a>
             </Button>
           </div>
 
@@ -74,11 +74,11 @@ const Header = () => {
                 Demo
               </a>
               <div className="flex flex-col space-y-3 pt-4 border-t border-border">
-                <Button variant="outline" size="sm">
-                  Iniciar Sesión
+                <Button variant="outline" size="sm" asChild>
+                  <a href="/auth">Iniciar Sesión</a>
                 </Button>
-                <Button variant="hero" size="sm">
-                  Prueba Gratuita
+                <Button variant="hero" size="sm" asChild>
+                  <a href="/auth">Prueba Gratuita</a>
                 </Button>
               </div>
             </nav>

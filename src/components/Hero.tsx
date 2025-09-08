@@ -29,9 +29,11 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="text-lg px-8">
-                Comenzar Prueba Gratuita
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button variant="hero" size="lg" className="text-lg px-8" asChild>
+                <a href="/auth">
+                  Comenzar Prueba Gratuita
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
               </Button>
               <Button variant="professional" size="lg" className="text-lg px-8">
                 Ver Demo Interactiva
