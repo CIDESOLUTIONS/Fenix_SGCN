@@ -11,7 +11,7 @@ import {
   Building,
   Clipboard
 } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import {
   Sidebar,
@@ -47,10 +47,11 @@ const planesItems = [
 
 const validacionItems = [
   { title: "Pruebas de Continuidad", url: "/pruebas", icon: TestTube },
-  { title: "Mantenimiento", url: "/mantenimiento", icon: Settings },
+  { title: "Configuración", url: "/settings", icon: Settings },
 ];
 
 export function AppSidebar() {
+  const navigate = useNavigate();
   const { state } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
