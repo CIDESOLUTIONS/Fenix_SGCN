@@ -56,6 +56,23 @@ interface OrganizationalStructure {
   updated_at: string;
 }
 
+interface BusinessProcess {
+  id: string;
+  name: string;
+  description: string;
+  department: string;
+  responsible_person: string;
+  criticality_level: string;
+  dependencies: string[];
+  raci_responsible: string;
+  raci_accountable: string;
+  raci_consulted: string;
+  raci_informed: string;
+  include_in_continuity: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 export default function Planeacion() {
   const { user } = useAuth();
   const { language, currency } = useSettings();
@@ -66,6 +83,7 @@ export default function Planeacion() {
   const [policies, setPolicies] = useState<PlanningPolicy[]>([]);
   const [objectives, setObjectives] = useState<PlanningObjective[]>([]);
   const [orgStructure, setOrgStructure] = useState<OrganizationalStructure[]>([]);
+  const [businessProcesses, setBusinessProcesses] = useState<BusinessProcess[]>([]);
   
   // Estados para formularios
   const [newPolicy, setNewPolicy] = useState({
@@ -98,9 +116,23 @@ export default function Planeacion() {
     contact_info: ""
   });
 
+  const [newProcess, setNewProcess] = useState({
+    name: "",
+    description: "",
+    department: "",
+    responsible_person: "",
+    criticality_level: "medium",
+    dependencies: [""],
+    raci_responsible: "",
+    raci_accountable: "",
+    raci_consulted: "",
+    raci_informed: "",
+    include_in_continuity: false
+  });
+
   const [activeTab, setActiveTab] = useState("overview");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [dialogType, setDialogType] = useState<"policy" | "objective" | "role">("policy");
+  const [dialogType, setDialogType] = useState<"policy" | "objective" | "role" | "process">("policy");
 
   const translations = {
     es: {
@@ -110,12 +142,14 @@ export default function Planeacion() {
       policies: "Políticas y Procedimientos",
       objectives: "Objetivos Estratégicos",
       organization: "Estructura Organizacional",
+      processes: "Procesos Críticos",
       resources: "Recursos y Presupuesto",
       timeline: "Cronograma",
       addNew: "Agregar Nuevo",
       addPolicy: "Agregar Política",
       addObjective: "Agregar Objetivo",
       addRole: "Agregar Rol",
+      addProcess: "Agregar Proceso",
       save: "Guardar",
       cancel: "Cancelar",
       edit: "Editar",
@@ -134,6 +168,15 @@ export default function Planeacion() {
       assigned_person: "Persona Asignada",
       backup_person: "Persona de Respaldo",
       contact_info: "Información de Contacto",
+      process_name: "Nombre del Proceso",
+      department: "Departamento",
+      criticality: "Criticidad",
+      dependencies: "Dependencias",
+      raci_matrix: "Matriz RACI",
+      include_continuity: "Incluir en Continuidad",
+      yes: "Sí",
+      no: "No",
+      critical: "Crítico",
       high: "Alto",
       medium: "Medio",
       low: "Bajo",
@@ -154,12 +197,14 @@ export default function Planeacion() {
       policies: "Policies and Procedures",
       objectives: "Strategic Objectives",
       organization: "Organizational Structure",
+      processes: "Critical Processes",
       resources: "Resources and Budget",
       timeline: "Timeline",
       addNew: "Add New",
       addPolicy: "Add Policy",
       addObjective: "Add Objective",
       addRole: "Add Role",
+      addProcess: "Add Process",
       save: "Save",
       cancel: "Cancel",
       edit: "Edit",
@@ -178,6 +223,15 @@ export default function Planeacion() {
       assigned_person: "Assigned Person",
       backup_person: "Backup Person",
       contact_info: "Contact Information",
+      process_name: "Process Name",
+      department: "Department",
+      criticality: "Criticality",
+      dependencies: "Dependencies",
+      raci_matrix: "RACI Matrix",
+      include_continuity: "Include in Continuity",
+      yes: "Yes",
+      no: "No",
+      critical: "Critical",
       high: "High",
       medium: "Medium",
       low: "Low",
@@ -204,8 +258,22 @@ export default function Planeacion() {
   const loadData = async () => {
     setLoading(true);
     try {
-      // Aquí cargaríamos datos reales de la base de datos
-      // Por ahora usamos datos de ejemplo
+      // Cargar procesos de negocio desde la base de datos
+      const { data: processesData, error: processesError } = await supabase
+        .from('business_processes')
+        .select('*')
+        .eq('user_id', user?.id);
+
+      if (processesError) throw processesError;
+
+      const transformedProcesses = processesData?.map(process => ({
+        ...process,
+        include_in_continuity: process.criticality_level === 'critical' || process.criticality_level === 'high'
+      })) || [];
+
+      setBusinessProcesses(transformedProcesses);
+      
+      // Datos de ejemplo para otras secciones
       setPolicies([
         {
           id: "1",
@@ -259,6 +327,79 @@ export default function Planeacion() {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSaveProcess = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('business_processes')
+        .insert([{
+          ...newProcess,
+          user_id: user?.id,
+          dependencies: newProcess.dependencies.filter(dep => dep.trim() !== '')
+        }])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      const processWithContinuity = {
+        ...data,
+        include_in_continuity: newProcess.include_in_continuity
+      };
+
+      setBusinessProcesses([...businessProcesses, processWithContinuity]);
+      setNewProcess({
+        name: "",
+        description: "",
+        department: "",
+        responsible_person: "",
+        criticality_level: "medium",
+        dependencies: [""],
+        raci_responsible: "",
+        raci_accountable: "",
+        raci_consulted: "",
+        raci_informed: "",
+        include_in_continuity: false
+      });
+      setIsDialogOpen(false);
+      
+      toast({
+        title: "Éxito",
+        description: "Proceso guardado correctamente",
+      });
+    } catch (error) {
+      console.error("Error saving process:", error);
+      toast({
+        title: "Error",
+        description: "Error al guardar el proceso",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleToggleContinuity = async (processId: string, newValue: boolean) => {
+    try {
+      setBusinessProcesses(prev => 
+        prev.map(process => 
+          process.id === processId 
+            ? { ...process, include_in_continuity: newValue }
+            : process
+        )
+      );
+      
+      toast({
+        title: "Actualizado",
+        description: `Proceso ${newValue ? 'incluido en' : 'excluido de'} continuidad`,
+      });
+    } catch (error) {
+      console.error("Error updating process:", error);
+      toast({
+        title: "Error",
+        description: "Error al actualizar el proceso",
+        variant: "destructive",
+      });
     }
   };
 
@@ -368,7 +509,7 @@ export default function Planeacion() {
     }
   };
 
-  const openDialog = (type: "policy" | "objective" | "role") => {
+  const openDialog = (type: "policy" | "objective" | "role" | "process") => {
     setDialogType(type);
     setIsDialogOpen(true);
   };
@@ -434,7 +575,7 @@ export default function Planeacion() {
 
               {/* Tabs Navigation */}
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="grid w-full grid-cols-6">
+                <TabsList className="grid w-full grid-cols-7">
                   <TabsTrigger value="overview" className="flex items-center gap-2">
                     <Target className="h-4 w-4" />
                     {t.overview}
@@ -450,6 +591,10 @@ export default function Planeacion() {
                   <TabsTrigger value="organization" className="flex items-center gap-2">
                     <Users className="h-4 w-4" />
                     {t.organization}
+                  </TabsTrigger>
+                  <TabsTrigger value="processes" className="flex items-center gap-2">
+                    <Shield className="h-4 w-4" />
+                    {t.processes}
                   </TabsTrigger>
                   <TabsTrigger value="resources" className="flex items-center gap-2">
                     <Settings className="h-4 w-4" />
@@ -759,6 +904,116 @@ export default function Planeacion() {
                   </div>
                 </TabsContent>
 
+                {/* Critical Processes Tab */}
+                <TabsContent value="processes" className="space-y-6">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-2xl font-bold">{t.processes}</h2>
+                    <Button onClick={() => openDialog("process")}>
+                      <Plus className="h-4 w-4 mr-2" />
+                      {t.addProcess}
+                    </Button>
+                  </div>
+
+                  <div className="grid gap-6">
+                    {businessProcesses.map((process) => (
+                      <Card key={process.id}>
+                        <CardHeader>
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <CardTitle>{process.name}</CardTitle>
+                              <CardDescription>{process.description}</CardDescription>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {getPriorityBadge(process.criticality_level)}
+                              <Badge variant={process.include_in_continuity ? "default" : "outline"}>
+                                {process.include_in_continuity ? t.yes : t.no}
+                              </Badge>
+                            </div>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-4">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                              <div>
+                                <span className="font-medium">{t.department}:</span>
+                                <p className="text-muted-foreground">{process.department}</p>
+                              </div>
+                              <div>
+                                <span className="font-medium">{t.responsible}:</span>
+                                <p className="text-muted-foreground">{process.responsible_person}</p>
+                              </div>
+                              <div>
+                                <span className="font-medium">{t.criticality}:</span>
+                                <p className="text-muted-foreground">{t[process.criticality_level as keyof typeof t] || process.criticality_level}</p>
+                              </div>
+                            </div>
+                            
+                            {process.dependencies && process.dependencies.length > 0 && (
+                              <div>
+                                <span className="font-medium">{t.dependencies}:</span>
+                                <div className="flex flex-wrap gap-1 mt-1">
+                                  {process.dependencies.map((dep, index) => (
+                                    <Badge key={index} variant="outline" className="text-xs">
+                                      {dep}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            <div className="border-t pt-4">
+                              <span className="font-medium mb-2 block">{t.raci_matrix}:</span>
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                <div>
+                                  <span className="font-medium text-blue-600">R:</span>
+                                  <p className="text-muted-foreground">{process.raci_responsible}</p>
+                                </div>
+                                <div>
+                                  <span className="font-medium text-green-600">A:</span>
+                                  <p className="text-muted-foreground">{process.raci_accountable}</p>
+                                </div>
+                                <div>
+                                  <span className="font-medium text-yellow-600">C:</span>
+                                  <p className="text-muted-foreground">{process.raci_consulted}</p>
+                                </div>
+                                <div>
+                                  <span className="font-medium text-purple-600">I:</span>
+                                  <p className="text-muted-foreground">{process.raci_informed}</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="flex justify-between items-center pt-4 border-t">
+                              <div className="flex items-center gap-3">
+                                <Label htmlFor={`continuity-${process.id}`} className="text-sm font-medium">
+                                  {t.include_continuity}
+                                </Label>
+                                <Button
+                                  variant={process.include_in_continuity ? "default" : "outline"}
+                                  size="sm"
+                                  onClick={() => handleToggleContinuity(process.id, !process.include_in_continuity)}
+                                >
+                                  {process.include_in_continuity ? t.yes : t.no}
+                                </Button>
+                              </div>
+                              <div className="flex gap-2">
+                                <Button variant="outline" size="sm">
+                                  <Edit className="h-4 w-4 mr-2" />
+                                  {t.edit}
+                                </Button>
+                                <Button variant="outline" size="sm">
+                                  <Trash2 className="h-4 w-4 mr-2" />
+                                  {t.delete}
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </TabsContent>
+
                 {/* Resources Tab */}
                 <TabsContent value="resources" className="space-y-6">
                   <h2 className="text-2xl font-bold">{t.resources}</h2>
@@ -796,6 +1051,7 @@ export default function Planeacion() {
                       {dialogType === "policy" && t.addPolicy}
                       {dialogType === "objective" && t.addObjective}
                       {dialogType === "role" && t.addRole}
+                      {dialogType === "process" && t.addProcess}
                     </DialogTitle>
                   </DialogHeader>
 
@@ -913,6 +1169,114 @@ export default function Planeacion() {
                     </div>
                   )}
 
+                  {dialogType === "process" && (
+                    <div className="grid gap-4 py-4">
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="process_name" className="text-right">{t.process_name}</Label>
+                        <Input
+                          id="process_name"
+                          value={newProcess.name}
+                          onChange={(e) => setNewProcess({...newProcess, name: e.target.value})}
+                          className="col-span-3"
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="process_description" className="text-right">{t.description}</Label>
+                        <Textarea
+                          id="process_description"
+                          value={newProcess.description}
+                          onChange={(e) => setNewProcess({...newProcess, description: e.target.value})}
+                          className="col-span-3"
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="department" className="text-right">{t.department}</Label>
+                        <Input
+                          id="department"
+                          value={newProcess.department}
+                          onChange={(e) => setNewProcess({...newProcess, department: e.target.value})}
+                          className="col-span-3"
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="responsible" className="text-right">{t.responsible}</Label>
+                        <Input
+                          id="responsible"
+                          value={newProcess.responsible_person}
+                          onChange={(e) => setNewProcess({...newProcess, responsible_person: e.target.value})}
+                          className="col-span-3"
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="criticality" className="text-right">{t.criticality}</Label>
+                        <Select value={newProcess.criticality_level} onValueChange={(value) => setNewProcess({...newProcess, criticality_level: value})}>
+                          <SelectTrigger className="col-span-3">
+                            <SelectValue placeholder="Seleccionar criticidad" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="critical">{t.critical}</SelectItem>
+                            <SelectItem value="high">{t.high}</SelectItem>
+                            <SelectItem value="medium">{t.medium}</SelectItem>
+                            <SelectItem value="low">{t.low}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="raci_responsible" className="text-right">RACI - R</Label>
+                        <Input
+                          id="raci_responsible"
+                          value={newProcess.raci_responsible}
+                          onChange={(e) => setNewProcess({...newProcess, raci_responsible: e.target.value})}
+                          className="col-span-3"
+                          placeholder="Responsable de ejecutar"
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="raci_accountable" className="text-right">RACI - A</Label>
+                        <Input
+                          id="raci_accountable"
+                          value={newProcess.raci_accountable}
+                          onChange={(e) => setNewProcess({...newProcess, raci_accountable: e.target.value})}
+                          className="col-span-3"
+                          placeholder="Responsable del resultado"
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="raci_consulted" className="text-right">RACI - C</Label>
+                        <Input
+                          id="raci_consulted"
+                          value={newProcess.raci_consulted}
+                          onChange={(e) => setNewProcess({...newProcess, raci_consulted: e.target.value})}
+                          className="col-span-3"
+                          placeholder="Consultado"
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="raci_informed" className="text-right">RACI - I</Label>
+                        <Input
+                          id="raci_informed"
+                          value={newProcess.raci_informed}
+                          onChange={(e) => setNewProcess({...newProcess, raci_informed: e.target.value})}
+                          className="col-span-3"
+                          placeholder="Informado"
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="include_continuity" className="text-right">{t.include_continuity}</Label>
+                        <div className="col-span-3 flex items-center gap-2">
+                          <Button
+                            type="button"
+                            variant={newProcess.include_in_continuity ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => setNewProcess({...newProcess, include_in_continuity: !newProcess.include_in_continuity})}
+                          >
+                            {newProcess.include_in_continuity ? t.yes : t.no}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   <DialogFooter>
                     <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
                       {t.cancel}
@@ -920,7 +1284,8 @@ export default function Planeacion() {
                     <Button onClick={
                       dialogType === "policy" ? handleSavePolicy :
                       dialogType === "objective" ? handleSaveObjective :
-                      handleSaveRole
+                      dialogType === "role" ? handleSaveRole :
+                      handleSaveProcess
                     }>
                       {t.save}
                     </Button>
