@@ -116,40 +116,21 @@ const Dashboard = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full">
+      <div className="flex h-screen w-full">
         <AppSidebar />
-        <div className="flex-1 flex flex-col">
-          {/* Header */}
-          <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="flex h-14 items-center px-4 lg:px-6">
-              <SidebarTrigger className="mr-4" />
-              <div className="flex items-center gap-4 flex-1">
-                <div className="flex items-center gap-2">
+        <SidebarInset className="flex-1">
+          <AppHeader />
+          <main className="flex-1 overflow-auto">
+            <div className="p-6">
+              <div className="max-w-7xl mx-auto space-y-6">
                   <h1 className="text-lg font-semibold text-foreground">Fenix SGCN</h1>
                   <Badge variant="outline" className="text-xs">
                     Sistema Activo
                   </Badge>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="text-right hidden sm:block">
-                  <p className="text-sm font-medium">{userProfile?.full_name}</p>
-                  <p className="text-xs text-muted-foreground">{userProfile?.company_name}</p>
-                </div>
-                <Button variant="ghost" size="icon" onClick={handleSignOut}>
-                  <LogOut className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </header>
-
-          {/* Main Content */}
-          <main className="flex-1 overflow-auto">
-            <div className="p-6 space-y-6">
-              {/* Welcome Section */}
-              <div>
-                <h2 className="text-2xl font-bold text-foreground">
-                  Bienvenido, {userProfile?.full_name?.split(' ')[0]}
+                {/* Welcome Section */}
+                <div>
+                  <h2 className="text-2xl font-bold text-foreground">
+                    Bienvenido, {userProfile?.full_name?.split(' ')[0]}
                 </h2>
                 <p className="text-muted-foreground">
                   Vista consolidada del estado del Sistema de Gestión de Continuidad del Negocio.
@@ -364,7 +345,8 @@ const Dashboard = () => {
                 </CardContent>
               </Card>
             </div>
-          </main>
+          </div>
+        </main>
         </SidebarInset>
       </div>
     </SidebarProvider>
