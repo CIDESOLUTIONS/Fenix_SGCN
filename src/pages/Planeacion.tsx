@@ -1210,149 +1210,160 @@ export default function Planeacion() {
                   )}
 
                   {dialogType === "process" && (
-                    <div className="grid gap-4 py-4">
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="process_name" className="text-right">{t.process_name}</Label>
-                        <Input
-                          id="process_name"
-                          value={newProcess.name}
-                          onChange={(e) => setNewProcess({...newProcess, name: e.target.value})}
-                          className="col-span-3"
-                        />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="process_description" className="text-right">{t.description}</Label>
-                        <Textarea
-                          id="process_description"
-                          value={newProcess.description}
-                          onChange={(e) => setNewProcess({...newProcess, description: e.target.value})}
-                          className="col-span-3"
-                        />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="department" className="text-right">{t.department}</Label>
-                        <Input
-                          id="department"
-                          value={newProcess.department}
-                          onChange={(e) => setNewProcess({...newProcess, department: e.target.value})}
-                          className="col-span-3"
-                        />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="responsible" className="text-right">{t.responsible}</Label>
-                        <Input
-                          id="responsible"
-                          value={newProcess.responsible_person}
-                          onChange={(e) => setNewProcess({...newProcess, responsible_person: e.target.value})}
-                          className="col-span-3"
-                        />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="criticality" className="text-right">{t.criticality}</Label>
-                        <Select value={newProcess.criticality_level} onValueChange={(value) => setNewProcess({...newProcess, criticality_level: value})}>
-                          <SelectTrigger className="col-span-3">
-                            <SelectValue placeholder="Seleccionar criticidad" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="critical">{t.critical}</SelectItem>
-                            <SelectItem value="high">{t.high}</SelectItem>
-                            <SelectItem value="medium">{t.medium}</SelectItem>
-                            <SelectItem value="low">{t.low}</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      {/* RACI - Responsable */}
-                      <div className="col-span-4">
-                        <Label className="text-sm font-medium">RACI - Responsable (R)</Label>
-                        <div className="grid grid-cols-3 gap-2 mt-2">
+                    <div className="grid gap-6 py-4">
+                      {/* Información básica del proceso */}
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="process_name" className="text-right">{t.process_name}</Label>
                           <Input
-                            value={newProcess.raci_responsible}
-                            onChange={(e) => setNewProcess({...newProcess, raci_responsible: e.target.value})}
-                            placeholder="Nombre completo"
-                          />
-                          <Input
-                            value={newProcess.raci_responsible_email}
-                            onChange={(e) => setNewProcess({...newProcess, raci_responsible_email: e.target.value})}
-                            placeholder="Correo electrónico"
-                            type="email"
-                          />
-                          <Input
-                            value={newProcess.raci_responsible_position}
-                            onChange={(e) => setNewProcess({...newProcess, raci_responsible_position: e.target.value})}
-                            placeholder="Cargo en la empresa"
+                            id="process_name"
+                            value={newProcess.name}
+                            onChange={(e) => setNewProcess({...newProcess, name: e.target.value})}
+                            className="col-span-3"
                           />
                         </div>
-                      </div>
-                      
-                      {/* RACI - Accountable */}
-                      <div className="col-span-4">
-                        <Label className="text-sm font-medium">RACI - Responsable del resultado (A)</Label>
-                        <div className="grid grid-cols-3 gap-2 mt-2">
-                          <Input
-                            value={newProcess.raci_accountable}
-                            onChange={(e) => setNewProcess({...newProcess, raci_accountable: e.target.value})}
-                            placeholder="Nombre completo"
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="process_description" className="text-right">{t.description}</Label>
+                          <Textarea
+                            id="process_description"
+                            value={newProcess.description}
+                            onChange={(e) => setNewProcess({...newProcess, description: e.target.value})}
+                            className="col-span-3"
                           />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="department" className="text-right">{t.department}</Label>
                           <Input
-                            value={newProcess.raci_accountable_email}
-                            onChange={(e) => setNewProcess({...newProcess, raci_accountable_email: e.target.value})}
-                            placeholder="Correo electrónico"
-                            type="email"
+                            id="department"
+                            value={newProcess.department}
+                            onChange={(e) => setNewProcess({...newProcess, department: e.target.value})}
+                            className="col-span-3"
                           />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="responsible" className="text-right">{t.responsible}</Label>
                           <Input
-                            value={newProcess.raci_accountable_position}
-                            onChange={(e) => setNewProcess({...newProcess, raci_accountable_position: e.target.value})}
-                            placeholder="Cargo en la empresa"
+                            id="responsible"
+                            value={newProcess.responsible_person}
+                            onChange={(e) => setNewProcess({...newProcess, responsible_person: e.target.value})}
+                            className="col-span-3"
                           />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="criticality" className="text-right">{t.criticality}</Label>
+                          <Select value={newProcess.criticality_level} onValueChange={(value) => setNewProcess({...newProcess, criticality_level: value})}>
+                            <SelectTrigger className="col-span-3">
+                              <SelectValue placeholder="Seleccionar criticidad" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="critical">{t.critical}</SelectItem>
+                              <SelectItem value="high">{t.high}</SelectItem>
+                              <SelectItem value="medium">{t.medium}</SelectItem>
+                              <SelectItem value="low">{t.low}</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
                       </div>
 
-                      {/* RACI - Consulted */}
-                      <div className="col-span-4">
-                        <Label className="text-sm font-medium">RACI - Consultado (C)</Label>
-                        <div className="grid grid-cols-3 gap-2 mt-2">
-                          <Input
-                            value={newProcess.raci_consulted}
-                            onChange={(e) => setNewProcess({...newProcess, raci_consulted: e.target.value})}
-                            placeholder="Nombre completo"
-                          />
-                          <Input
-                            value={newProcess.raci_consulted_email}
-                            onChange={(e) => setNewProcess({...newProcess, raci_consulted_email: e.target.value})}
-                            placeholder="Correo electrónico"
-                            type="email"
-                          />
-                          <Input
-                            value={newProcess.raci_consulted_position}
-                            onChange={(e) => setNewProcess({...newProcess, raci_consulted_position: e.target.value})}
-                            placeholder="Cargo en la empresa"
-                          />
+                      {/* Información RACI */}
+                      <div className="space-y-6 border-t pt-4">
+                        <h3 className="text-lg font-semibold">Información RACI</h3>
+                        
+                        {/* RACI - Responsable */}
+                        <div className="space-y-2">
+                          <Label className="text-sm font-medium">RACI - Responsable (R)</Label>
+                          <div className="grid grid-cols-3 gap-3">
+                            <Input
+                              value={newProcess.raci_responsible}
+                              onChange={(e) => setNewProcess({...newProcess, raci_responsible: e.target.value})}
+                              placeholder="Nombre completo"
+                            />
+                            <Input
+                              value={newProcess.raci_responsible_email}
+                              onChange={(e) => setNewProcess({...newProcess, raci_responsible_email: e.target.value})}
+                              placeholder="Correo electrónico"
+                              type="email"
+                            />
+                            <Input
+                              value={newProcess.raci_responsible_position}
+                              onChange={(e) => setNewProcess({...newProcess, raci_responsible_position: e.target.value})}
+                              placeholder="Cargo en la empresa"
+                            />
+                          </div>
+                        </div>
+                        
+                        {/* RACI - Accountable */}
+                        <div className="space-y-2">
+                          <Label className="text-sm font-medium">RACI - Responsable del resultado (A)</Label>
+                          <div className="grid grid-cols-3 gap-3">
+                            <Input
+                              value={newProcess.raci_accountable}
+                              onChange={(e) => setNewProcess({...newProcess, raci_accountable: e.target.value})}
+                              placeholder="Nombre completo"
+                            />
+                            <Input
+                              value={newProcess.raci_accountable_email}
+                              onChange={(e) => setNewProcess({...newProcess, raci_accountable_email: e.target.value})}
+                              placeholder="Correo electrónico"
+                              type="email"
+                            />
+                            <Input
+                              value={newProcess.raci_accountable_position}
+                              onChange={(e) => setNewProcess({...newProcess, raci_accountable_position: e.target.value})}
+                              placeholder="Cargo en la empresa"
+                            />
+                          </div>
+                        </div>
+
+                        {/* RACI - Consulted */}
+                        <div className="space-y-2">
+                          <Label className="text-sm font-medium">RACI - Consultado (C)</Label>
+                          <div className="grid grid-cols-3 gap-3">
+                            <Input
+                              value={newProcess.raci_consulted}
+                              onChange={(e) => setNewProcess({...newProcess, raci_consulted: e.target.value})}
+                              placeholder="Nombre completo"
+                            />
+                            <Input
+                              value={newProcess.raci_consulted_email}
+                              onChange={(e) => setNewProcess({...newProcess, raci_consulted_email: e.target.value})}
+                              placeholder="Correo electrónico"
+                              type="email"
+                            />
+                            <Input
+                              value={newProcess.raci_consulted_position}
+                              onChange={(e) => setNewProcess({...newProcess, raci_consulted_position: e.target.value})}
+                              placeholder="Cargo en la empresa"
+                            />
+                          </div>
+                        </div>
+
+                        {/* RACI - Informed */}
+                        <div className="space-y-2">
+                          <Label className="text-sm font-medium">RACI - Informado (I)</Label>
+                          <div className="grid grid-cols-3 gap-3">
+                            <Input
+                              value={newProcess.raci_informed}
+                              onChange={(e) => setNewProcess({...newProcess, raci_informed: e.target.value})}
+                              placeholder="Nombre completo"
+                            />
+                            <Input
+                              value={newProcess.raci_informed_email}
+                              onChange={(e) => setNewProcess({...newProcess, raci_informed_email: e.target.value})}
+                              placeholder="Correo electrónico"
+                              type="email"
+                            />
+                            <Input
+                              value={newProcess.raci_informed_position}
+                              onChange={(e) => setNewProcess({...newProcess, raci_informed_position: e.target.value})}
+                              placeholder="Cargo en la empresa"
+                            />
+                          </div>
                         </div>
                       </div>
 
-                      {/* RACI - Informed */}
-                      <div className="col-span-4">
-                        <Label className="text-sm font-medium">RACI - Informado (I)</Label>
-                        <div className="grid grid-cols-3 gap-2 mt-2">
-                          <Input
-                            value={newProcess.raci_informed}
-                            onChange={(e) => setNewProcess({...newProcess, raci_informed: e.target.value})}
-                            placeholder="Nombre completo"
-                          />
-                          <Input
-                            value={newProcess.raci_informed_email}
-                            onChange={(e) => setNewProcess({...newProcess, raci_informed_email: e.target.value})}
-                            placeholder="Correo electrónico"
-                            type="email"
-                          />
-                          <Input
-                            value={newProcess.raci_informed_position}
-                            onChange={(e) => setNewProcess({...newProcess, raci_informed_position: e.target.value})}
-                            placeholder="Cargo en la empresa"
-                          />
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
+                      {/* Incluir en continuidad */}
+                      <div className="grid grid-cols-4 items-center gap-4 border-t pt-4">
                         <Label htmlFor="include_continuity" className="text-right">{t.include_continuity}</Label>
                         <div className="col-span-3 flex items-center gap-2">
                           <Button
