@@ -532,6 +532,169 @@ const BusinessImpactAnalysis = () => {
                 </Card>
               </TabsContent>
 
+              <TabsContent value="concepts" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Clock className="h-5 w-5" />
+                      Conceptos Fundamentales del BIA
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Timeline Concepts */}
+                    <div className="grid gap-6 md:grid-cols-2">
+                      <Card className="border-2 border-blue-200">
+                        <CardHeader>
+                          <CardTitle className="text-lg text-blue-700">RTO - Recovery Time Objective</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm text-muted-foreground mb-3">
+                            <strong>Tiempo Recuperación Core Activo</strong>
+                          </p>
+                          <p className="text-sm">
+                            Es el tiempo máximo aceptable que puede tomar recuperar un proceso de negocio después de una interrupción. 
+                            Representa el tiempo desde el incidente hasta que el proceso esté operativo nuevamente.
+                          </p>
+                          <div className="mt-3 p-2 bg-blue-50 rounded">
+                            <span className="text-xs font-medium text-blue-700">Ejemplo: 4 horas máximo</span>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="border-2 border-green-200">
+                        <CardHeader>
+                          <CardTitle className="text-lg text-green-700">RPO - Recovery Point Objective</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm text-muted-foreground mb-3">
+                            <strong>Punto Objetivo Recuperación</strong>
+                          </p>
+                          <p className="text-sm">
+                            Es la cantidad máxima de datos que una organización puede permitirse perder durante una interrupción, 
+                            medida en tiempo. Define el punto en el tiempo al cual los datos deben ser recuperados.
+                          </p>
+                          <div className="mt-3 p-2 bg-green-50 rounded">
+                            <span className="text-xs font-medium text-green-700">Ejemplo: Pérdida máxima de 1 hora de datos</span>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="border-2 border-purple-200">
+                        <CardHeader>
+                          <CardTitle className="text-lg text-purple-700">MTPD - Maximum Tolerable Period of Disruption</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm text-muted-foreground mb-3">
+                            <strong>Período Máximo Indisponibilidad Tolerable</strong>
+                          </p>
+                          <p className="text-sm">
+                            Es el tiempo máximo que una organización puede tolerar la interrupción de un proceso crítico de negocio 
+                            antes de que el impacto se vuelva inaceptable para la supervivencia de la organización.
+                          </p>
+                          <div className="mt-3 p-2 bg-purple-50 rounded">
+                            <span className="text-xs font-medium text-purple-700">Ejemplo: 72 horas máximo</span>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="border-2 border-orange-200">
+                        <CardHeader>
+                          <CardTitle className="text-lg text-orange-700">MBCO - Minimum Business Continuity Objective</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm text-muted-foreground mb-3">
+                            <strong>Objetivo Mínimo Continuidad Negocio</strong>
+                          </p>
+                          <p className="text-sm">
+                            Es el nivel mínimo de servicios y/o productos que es aceptable para la organización durante una interrupción. 
+                            Se expresa como un porcentaje de operación normal.
+                          </p>
+                          <div className="mt-3 p-2 bg-orange-50 rounded">
+                            <span className="text-xs font-medium text-orange-700">Ejemplo: 60% de capacidad operativa</span>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {/* Plans Overview */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold">Planes del SGCN</h3>
+                      <div className="grid gap-4 md:grid-cols-3">
+                        <Card className="border-l-4 border-l-red-500">
+                          <CardHeader>
+                            <CardTitle className="text-base">IRP - Plan Respuesta Incidente</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-sm text-muted-foreground">
+                              Procedimientos inmediatos para responder a un incidente y minimizar el impacto inicial.
+                            </p>
+                          </CardContent>
+                        </Card>
+
+                        <Card className="border-l-4 border-l-blue-500">
+                          <CardHeader>
+                            <CardTitle className="text-base">DRP - Plan Recuperación Desastres</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-sm text-muted-foreground">
+                              Estrategias y procedimientos para recuperar sistemas críticos después de un desastre.
+                            </p>
+                          </CardContent>
+                        </Card>
+
+                        <Card className="border-l-4 border-l-green-500">
+                          <CardHeader>
+                            <CardTitle className="text-base">BCP - Plan Continuidad Negocio</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-sm text-muted-foreground">
+                              Plan integral para mantener operaciones críticas durante y después de una interrupción.
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </div>
+
+                    {/* Relationship Timeline */}
+                    <Card className="bg-gradient-to-r from-blue-50 to-green-50">
+                      <CardHeader>
+                        <CardTitle className="text-lg">Relación Temporal de los Objetivos</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-3">
+                            <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                            <span className="text-sm"><strong>Incidente:</strong> Interrupción del servicio</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <span className="text-sm"><strong>RPO:</strong> Punto máximo de pérdida de datos aceptable</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                            <span className="text-sm"><strong>RTO:</strong> Tiempo para recuperar operaciones críticas</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                            <span className="text-sm"><strong>WRT:</strong> Tiempo para recuperación completa</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+                            <span className="text-sm"><strong>MTPD:</strong> Límite máximo tolerable de interrupción</span>
+                          </div>
+                        </div>
+                        <div className="mt-4 p-3 bg-white rounded border">
+                          <p className="text-xs text-muted-foreground">
+                            <strong>Nota importante:</strong> RTO debe ser siempre menor que MTPD. El MBCO define el nivel mínimo 
+                            de servicio durante el período de recuperación.
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
               <TabsContent value="criteria" className="space-y-4">
                 <CriteriaManager 
                   moduleType="bia" 
