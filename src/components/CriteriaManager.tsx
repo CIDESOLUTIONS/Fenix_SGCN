@@ -115,8 +115,13 @@ const CriteriaManager: React.FC<CriteriaManagerProps> = ({ moduleType, onCriteri
 
       if (error) throw error;
 
-      setCriteria(data || []);
-      onCriteriaChange?.(data || []);
+      const criteriaData = (data || []).map(item => ({
+        ...item,
+        module_type: item.module_type || moduleType
+      }));
+
+      setCriteria(criteriaData as Criteria[]);
+      onCriteriaChange?.(criteriaData as Criteria[]);
     } catch (error) {
       console.error('Error loading criteria:', error);
       toast({

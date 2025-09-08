@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +13,8 @@ import { useToast } from "@/hooks/use-toast";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import AppHeader from "@/components/AppHeader";
+import CriteriaManager from "@/components/CriteriaManager";
+import EvaluationMatrix from "@/components/EvaluationMatrix";
 
 interface Risk {
   id: string;
@@ -59,6 +61,7 @@ const RiskAnalysis = () => {
     }
   ]);
 
+  const [criteria, setCriteria] = useState<any[]>([]);
   const [newRisk, setNewRisk] = useState({
     title: "",
     description: "",
@@ -111,6 +114,13 @@ const RiskAnalysis = () => {
     highRisks: risks.filter(r => r.riskScore >= 9 && r.riskScore < 15).length,
     averageScore: risks.reduce((acc, r) => acc + r.riskScore, 0) / risks.length || 0
   };
+
+  // Transform risks to match EvaluationMatrix interface
+  const riskItems = risks.map(risk => ({
+    id: risk.id,
+    risk_name: risk.title,
+    risk_description: risk.description
+  }));
 
   return (
     <SidebarProvider>
@@ -297,15 +307,15 @@ const RiskAnalysis = () => {
               </div>
 
               {/* Main Content */}
-              <Tabs defaultValue="registry" className="w-full">
-                <TabsList className="grid w-full grid-cols-4">
-                  <TabsTrigger value="registry">Registro de Riesgos</TabsTrigger>
-                  <TabsTrigger value="matrix">Matriz de Riesgos</TabsTrigger>
-                  <TabsTrigger value="analysis">Análisis</TabsTrigger>
-                  <TabsTrigger value="reports">Reportes</TabsTrigger>
+              <Tabs defaultValue="overview" className="space-y-4">
+                <TabsList>
+                  <TabsTrigger value="overview">Vista General</TabsTrigger>
+                  <TabsTrigger value="risks">Riesgos</TabsTrigger>
+                  <TabsTrigger value="criteria">Criterios</TabsTrigger>
+                  <TabsTrigger value="evaluation">Evaluación</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="registry" className="space-y-4">
+                <TabsContent value="overview" className="space-y-4">
                   <Card>
                     <CardHeader>
                       <CardTitle>Registro de Riesgos Identificados</CardTitle>
@@ -358,81 +368,38 @@ const RiskAnalysis = () => {
                   </Card>
                 </TabsContent>
 
-                <TabsContent value="matrix">
+                <TabsContent value="risks" className="space-y-4">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Matriz de Riesgos</CardTitle>
+                      <CardTitle>Gestión de Riesgos</CardTitle>
                       <CardDescription>
-                        Visualización de riesgos por probabilidad e impacto
+                        Administre los riesgos identificados
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="text-center text-muted-foreground py-8">
-                        Matriz de riesgos en desarrollo
+                        Funcionalidad en desarrollo
                       </div>
                     </CardContent>
                   </Card>
                 </TabsContent>
 
-                <TabsContent value="analysis">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Análisis de Tendencias</CardTitle>
-                      <CardDescription>
-                        Análisis estadístico y tendencias de riesgos
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-center text-muted-foreground py-8">
-                        Análisis de tendencias en desarrollo
-                      </div>
-                    </CardContent>
-                  </Card>
+                <TabsContent value="criteria" className="space-y-4">
+                  <CriteriaManager 
+                    moduleType="risk" 
+                    onCriteriaChange={(newCriteria) => setCriteria(newCriteria)}
+                  />
                 </TabsContent>
 
-                <TabsContent value="reports">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Reportes y Documentación</CardTitle>
-                      <CardDescription>
-                        Generar reportes y documentos del análisis de riesgos
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <Button variant="outline" className="justify-start">
-                          <FileText className="h-4 w-4 mr-2" />
-                          Reporte Ejecutivo de Riesgos
-                        </Button>
-                        <Button variant="outline" className="justify-start">
-                          <FileText className="h-4 w-4 mr-2" />
-                          Plan de Tratamiento de Riesgos
-                        </Button>
-                        <Button variant="outline" className="justify-start">
-                          <FileText className="h-4 w-4 mr-2" />
-                          Historial de Cambios
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-              </TabsContent>
-
-              <TabsContent value="criteria" className="space-y-4">
-                <CriteriaManager 
-                  moduleType="risk" 
-                  onCriteriaChange={(newCriteria) => setCriteria(newCriteria)}
-                />
-              </TabsContent>
-
-              <TabsContent value="evaluation" className="space-y-4">
-                <EvaluationMatrix
-                  moduleType="risk"
-                  criteria={criteria}
-                  items={filteredRisks}
-                  itemNameField="risk_name"
-                  itemDescField="risk_description"
-                />
-              </TabsContent>
+                <TabsContent value="evaluation" className="space-y-4">
+                  <EvaluationMatrix
+                    moduleType="risk"
+                    criteria={criteria}
+                    items={riskItems}
+                    itemNameField="risk_name"
+                    itemDescField="risk_description"
+                  />
+                </TabsContent>
               </Tabs>
             </div>
           </main>

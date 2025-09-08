@@ -17,6 +17,8 @@ import { Plus, Edit, Trash2, Building2, Clock, DollarSign, AlertTriangle } from 
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useSettings } from "@/contexts/SettingsContext";
+import CriteriaManager from '@/components/CriteriaManager';
+import EvaluationMatrix from '@/components/EvaluationMatrix';
 
 interface BusinessProcess {
   id: string;
@@ -541,7 +543,11 @@ const BusinessImpactAnalysis = () => {
                 <EvaluationMatrix
                   moduleType="bia"
                   criteria={criteria}
-                  items={filteredAssessments}
+                  items={assessments.map(assessment => ({
+                    id: assessment.id,
+                    process_name: `Process ${assessment.process_id}`,
+                    operational_impact: assessment.operational_impact
+                  }))}
                   itemNameField="process_name"
                   itemDescField="operational_impact"
                 />

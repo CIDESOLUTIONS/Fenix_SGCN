@@ -550,6 +550,7 @@ export type Database = {
           id: string
           max_value: number | null
           min_value: number | null
+          module_type: string | null
           scale_description: Json | null
           updated_at: string
           user_id: string
@@ -563,6 +564,7 @@ export type Database = {
           id?: string
           max_value?: number | null
           min_value?: number | null
+          module_type?: string | null
           scale_description?: Json | null
           updated_at?: string
           user_id: string
@@ -576,6 +578,7 @@ export type Database = {
           id?: string
           max_value?: number | null
           min_value?: number | null
+          module_type?: string | null
           scale_description?: Json | null
           updated_at?: string
           user_id?: string

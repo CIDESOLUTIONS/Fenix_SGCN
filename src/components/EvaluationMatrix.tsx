@@ -105,19 +105,11 @@ const EvaluationMatrix: React.FC<EvaluationMatrixProps> = ({
 
   const handleScoreChange = async (itemId: string, criteriaId: string, score: number) => {
     try {
-      const tableMap = {
-        risk: 'process_strategy_evaluations',
-        bia: 'process_strategy_evaluations', 
-        strategy: 'process_strategy_evaluations'
-      };
-
-      const table = tableMap[moduleType];
-      
       const existingEvaluation = evaluations[itemId]?.[criteriaId];
 
       if (existingEvaluation) {
         const { error } = await supabase
-          .from(table)
+          .from('process_strategy_evaluations')
           .update({ score })
           .eq('process_id', itemId)
           .eq('criteria_id', criteriaId)
@@ -126,7 +118,7 @@ const EvaluationMatrix: React.FC<EvaluationMatrixProps> = ({
         if (error) throw error;
       } else {
         const { error } = await supabase
-          .from(table)
+          .from('process_strategy_evaluations')
           .insert([{
             user_id: user.id,
             process_id: itemId,
