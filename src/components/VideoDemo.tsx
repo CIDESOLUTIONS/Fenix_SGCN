@@ -157,8 +157,11 @@ const VideoDemo = () => {
               <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
                 <div className="text-center text-white">
                   <Loader className="h-12 w-12 animate-spin mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Generando Video Demo</h3>
-                  <p className="text-white/80">Esto puede tomar unos minutos...</p>
+                  <h3 className="text-xl font-semibold mb-2">Generando Demo SGCN</h3>
+                  <p className="text-white/80 mb-2">Recorrido completo por la aplicación...</p>
+                  <div className="text-sm text-white/60">
+                    Landing → Registro → Dashboard → Riesgos → BIA → Estrategias → Planes → Pruebas
+                  </div>
                 </div>
               </div>
             )}
