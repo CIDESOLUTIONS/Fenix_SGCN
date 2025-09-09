@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Shield, Zap, Globe } from "lucide-react";
-import heroDashboard from "@/assets/hero-dashboard.png";
 import { useSettings } from "@/contexts/SettingsContext";
+import VideoDemo from "./VideoDemo";
 
 const Hero = () => {
   const { t } = useSettings();
@@ -58,14 +58,10 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Hero Image */}
+          {/* Hero Video Demo */}
           <div className="relative">
             <div className="relative z-10">
-              <img 
-                src={heroDashboard} 
-                alt="Fenix-SGCN Dashboard" 
-                className="w-full h-auto rounded-2xl shadow-elegant"
-              />
+              <VideoDemo />
             </div>
             {/* Background Gradient */}
             <div className="absolute inset-0 bg-gradient-primary opacity-20 rounded-2xl blur-2xl scale-110"></div>
