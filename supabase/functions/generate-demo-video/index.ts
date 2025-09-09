@@ -12,55 +12,76 @@ serve(async (req) => {
 
   try {
     const body = await req.json();
+    const BROWSERLESS_API_KEY = Deno.env.get('BROWSERLESS_API_KEY');
     
-    console.log("Creating SGCN application walkthrough video");
+    if (!BROWSERLESS_API_KEY) {
+      throw new Error('BROWSERLESS_API_KEY is required');
+    }
     
-    // Create a video showing the actual application flow
+    console.log("Creating SGCN application walkthrough video with Browserless");
+    
+    // Current application URL
     const appUrl = "https://d8747366-904a-4d40-a623-95cf67b7346f.sandbox.lovable.dev";
     
     // Define the application flow sequence
     const pageSequence = [
-      { url: `${appUrl}/`, description: "Landing page de Fenix SGCN" },
-      { url: `${appUrl}/auth`, description: "Registro de cliente" }, 
-      { url: `${appUrl}/auth`, description: "Login de usuario" },
-      { url: `${appUrl}/dashboard`, description: "Dashboard principal" },
-      { url: `${appUrl}/planeacion`, description: "Procesos críticos" },
-      { url: `${appUrl}/risk-analysis`, description: "Mapa de riesgos" },
-      { url: `${appUrl}/business-impact-analysis`, description: "Mapa de BIA" },
-      { url: `${appUrl}/strategy-criteria`, description: "Selección de estrategia" },
-      { url: `${appUrl}/continuity-strategies`, description: "Estrategias" },
-      { url: `${appUrl}/plans`, description: "Planes de continuidad" },
-      { url: `${appUrl}/pruebas`, description: "Resultados de pruebas" },
-      { url: `${appUrl}/`, description: "Regreso al hero" }
+      { url: `${appUrl}/`, description: "Landing page de Fenix SGCN", duration: 3000 },
+      { url: `${appUrl}/auth`, description: "Registro de cliente", duration: 2500 }, 
+      { url: `${appUrl}/auth`, description: "Login de usuario", duration: 2500 },
+      { url: `${appUrl}/dashboard`, description: "Dashboard principal", duration: 4000 },
+      { url: `${appUrl}/planeacion`, description: "Procesos críticos", duration: 3500 },
+      { url: `${appUrl}/risk-analysis`, description: "Mapa de riesgos", duration: 3500 },
+      { url: `${appUrl}/business-impact-analysis`, description: "Mapa de BIA", duration: 3500 },
+      { url: `${appUrl}/strategy-criteria`, description: "Selección de estrategia", duration: 3000 },
+      { url: `${appUrl}/continuity-strategies`, description: "Estrategias", duration: 3500 },
+      { url: `${appUrl}/plans`, description: "Planes de continuidad", duration: 3500 },
+      { url: `${appUrl}/pruebas`, description: "Resultados de pruebas", duration: 3000 },
+      { url: `${appUrl}/`, description: "Regreso al hero", duration: 3000 }
     ];
 
-    // Generate video script for the application walkthrough
-    const videoScript = `
-    Bienvenido al recorrido completo de Fenix SGCN - Sistema de Gestión de Continuidad de Negocio.
-    
-    1. Comenzamos en la landing page donde se presenta Fenix SGCN como la solución integral para proteger tu empresa
-    2. Proceso de registro de nuevo cliente con formularios seguros
-    3. Sistema de login para acceso autenticado
-    4. Dashboard principal mostrando métricas y estado del sistema SGCN
-    5. Módulo de procesos críticos para identificar operaciones esenciales
-    6. Análisis de riesgos con matrices interactivas y mapas de calor
-    7. Business Impact Analysis (BIA) evaluando impactos y dependencias
-    8. Herramientas de selección de estrategias de continuidad
-    9. Configuración detallada de estrategias de continuidad
-    10. Gestión de planes de implementación con cronogramas
-    11. Consolidación de resultados de pruebas y validaciones
-    12. Retorno a la sección hero: "Protege tu empresa con un SGCN robusto y confiable"
-    
-    Este es el flujo completo que garantiza la continuidad operacional de tu organización.
-    `;
+    // Create video using Browserless
+    const videoResponse = await fetch('https://chrome.browserless.io/screencast', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${BROWSERLESS_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url: appUrl,
+        options: {
+          viewport: { width: 1920, height: 1080 },
+          waitUntil: 'networkidle2',
+          fullPage: false
+        },
+        videoOptions: {
+          fps: 30,
+          format: 'mp4',
+          quality: 90
+        },
+        actions: pageSequence.map((page, index) => ({
+          type: 'goto',
+          url: page.url,
+          options: { waitUntil: 'networkidle2' },
+          wait: page.duration
+        }))
+      })
+    });
 
-    // For now, return the sequence and script - in production this would trigger actual video generation
+    if (!videoResponse.ok) {
+      throw new Error(`Browserless API error: ${videoResponse.status}`);
+    }
+
+    const videoBuffer = await videoResponse.arrayBuffer();
+    const videoBase64 = btoa(String.fromCharCode(...new Uint8Array(videoBuffer)));
+    const videoDataUrl = `data:video/mp4;base64,${videoBase64}`;
+
+    console.log("Video generated successfully, size:", videoBuffer.byteLength);
+
     return new Response(JSON.stringify({ 
-      output: [`${appUrl}/demo-video-placeholder.mp4`],
-      message: "Video demo del recorrido SGCN generado",
+      output: [videoDataUrl],
+      message: "Video demo del recorrido SGCN generado exitosamente",
       sequence: pageSequence,
-      script: videoScript,
-      description: "Video mostrando navegación real por todas las páginas de Fenix SGCN"
+      description: "Video real navegando por todas las páginas de Fenix SGCN"
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
@@ -68,7 +89,10 @@ serve(async (req) => {
 
   } catch (error) {
     console.error("Error generating application walkthrough video:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ 
+      error: error.message,
+      details: "Asegúrate de haber configurado BROWSERLESS_API_KEY correctamente"
+    }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 500,
     });
