@@ -87,11 +87,8 @@ const VideoDemo = () => {
   };
 
   const openDemoDialog = () => {
-    if (videoUrl) {
-      setIsOpen(true);
-    } else {
-      generateDemoVideo();
-    }
+    // No generamos video, solo mostramos el demo interactivo
+    setIsOpen(true);
   };
 
   return (
@@ -132,7 +129,11 @@ const VideoDemo = () => {
 
       {/* Video Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-4xl w-full p-0">
+        <DialogContent className="max-w-4xl w-full p-0" aria-describedby="video-demo-description">
+          <div className="sr-only">
+            <h2 id="video-demo-title">Demo del Sistema SGCN</h2>
+            <p id="video-demo-description">Video demostrativo del proceso completo de gestión de continuidad de negocio</p>
+          </div>
           <div className="relative">
             <Button
               variant="ghost"
@@ -154,14 +155,37 @@ const VideoDemo = () => {
                 Tu navegador no soporta el elemento de video.
               </video>
             ) : (
-              <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
-                <div className="text-center text-white">
-                  <Loader className="h-12 w-12 animate-spin mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Generando Demo SGCN</h3>
-                  <p className="text-white/80 mb-2">Recorrido completo por la aplicación...</p>
-                  <div className="text-sm text-white/60">
-                    Landing → Registro → Dashboard → Riesgos → BIA → Estrategias → Planes → Pruebas
+              <div className="aspect-video bg-gradient-hero rounded-lg flex flex-col items-center justify-center p-8">
+                <div className="text-center text-white max-w-2xl">
+                  <h3 className="text-2xl font-bold mb-4">Demo Interactivo SGCN</h3>
+                  <p className="text-lg mb-6">Explora las funcionalidades de Fenix SGCN</p>
+                  
+                  <div className="grid grid-cols-2 gap-4 text-left bg-white/10 rounded-lg p-6">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold">Proceso Completo:</h4>
+                      <ul className="text-sm space-y-1">
+                        <li>• Landing Page</li>
+                        <li>• Registro de Usuario</li>
+                        <li>• Dashboard Principal</li>
+                        <li>• Análisis de Procesos Críticos</li>
+                        <li>• Mapa de Riesgos</li>
+                      </ul>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="font-semibold">Funcionalidades:</h4>
+                      <ul className="text-sm space-y-1">
+                        <li>• Business Impact Analysis</li>
+                        <li>• Selección de Estrategias</li>
+                        <li>• Planes de Continuidad</li>
+                        <li>• Pruebas y Validación</li>
+                        <li>• Reportes Consolidados</li>
+                      </ul>
+                    </div>
                   </div>
+                  
+                  <p className="text-sm text-white/80 mt-4">
+                    Navega por la aplicación para ver todas las funcionalidades en acción
+                  </p>
                 </div>
               </div>
             )}
