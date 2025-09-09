@@ -129,66 +129,89 @@ const VideoDemo = () => {
 
       {/* Video Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-4xl w-full p-0" aria-describedby="video-demo-description">
+        <DialogContent className="max-w-4xl w-full p-6 bg-background">
           <div className="sr-only">
             <h2 id="video-demo-title">Demo del Sistema SGCN</h2>
             <p id="video-demo-description">Video demostrativo del proceso completo de gestión de continuidad de negocio</p>
           </div>
+          
           <div className="relative">
             <Button
               variant="ghost"
               size="sm"
-              className="absolute right-2 top-2 z-10 bg-black/50 text-white hover:bg-black/70"
+              className="absolute right-0 top-0 z-10"
               onClick={() => setIsOpen(false)}
             >
               <X className="h-4 w-4" />
             </Button>
             
-            {videoUrl ? (
-              <video
-                src={videoUrl}
-                controls
-                autoPlay
-                className="w-full h-auto rounded-lg"
-                poster={demoThumbnail}
-              >
-                Tu navegador no soporta el elemento de video.
-              </video>
-            ) : (
-              <div className="aspect-video bg-gradient-hero rounded-lg flex flex-col items-center justify-center p-8">
-                <div className="text-center text-white max-w-2xl">
-                  <h3 className="text-2xl font-bold mb-4">Demo Interactivo SGCN</h3>
-                  <p className="text-lg mb-6">Explora las funcionalidades de Fenix SGCN</p>
+            <div className="mt-8">
+              <div className="aspect-video bg-gradient-to-br from-primary to-primary-dark rounded-lg flex flex-col items-center justify-center p-8 text-white">
+                <div className="text-center max-w-2xl">
+                  <h3 className="text-3xl font-bold mb-6">Demo Interactivo SGCN</h3>
+                  <p className="text-lg mb-8 opacity-90">Explora todas las funcionalidades de Fenix SGCN</p>
                   
-                  <div className="grid grid-cols-2 gap-4 text-left bg-white/10 rounded-lg p-6">
-                    <div className="space-y-2">
-                      <h4 className="font-semibold">Proceso Completo:</h4>
-                      <ul className="text-sm space-y-1">
-                        <li>• Landing Page</li>
-                        <li>• Registro de Usuario</li>
-                        <li>• Dashboard Principal</li>
-                        <li>• Análisis de Procesos Críticos</li>
-                        <li>• Mapa de Riesgos</li>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left bg-white/10 backdrop-blur rounded-lg p-6">
+                    <div className="space-y-3">
+                      <h4 className="font-bold text-lg border-b border-white/20 pb-2">Proceso Completo:</h4>
+                      <ul className="space-y-2">
+                        <li className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                          <span>Landing Page</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                          <span>Registro de Usuario</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                          <span>Dashboard Principal</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                          <span>Procesos Críticos</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                          <span>Mapa de Riesgos</span>
+                        </li>
                       </ul>
                     </div>
-                    <div className="space-y-2">
-                      <h4 className="font-semibold">Funcionalidades:</h4>
-                      <ul className="text-sm space-y-1">
-                        <li>• Business Impact Analysis</li>
-                        <li>• Selección de Estrategias</li>
-                        <li>• Planes de Continuidad</li>
-                        <li>• Pruebas y Validación</li>
-                        <li>• Reportes Consolidados</li>
+                    <div className="space-y-3">
+                      <h4 className="font-bold text-lg border-b border-white/20 pb-2">Funcionalidades:</h4>
+                      <ul className="space-y-2">
+                        <li className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                          <span>Business Impact Analysis</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                          <span>Selección de Estrategias</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                          <span>Planes de Continuidad</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                          <span>Pruebas y Validación</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-2 h-2 bg-white rounded-full"></span>
+                          <span>Reportes Consolidados</span>
+                        </li>
                       </ul>
                     </div>
                   </div>
                   
-                  <p className="text-sm text-white/80 mt-4">
-                    Navega por la aplicación para ver todas las funcionalidades en acción
-                  </p>
+                  <div className="mt-8 p-4 bg-white/5 rounded-lg border border-white/10">
+                    <p className="text-sm opacity-90">
+                      💡 <strong>Navega por la aplicación</strong> para experimentar todas las funcionalidades en tiempo real
+                    </p>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </DialogContent>
       </Dialog>
