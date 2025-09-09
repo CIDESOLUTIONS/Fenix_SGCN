@@ -1,1 +1,4 @@
 project_id = "dyiugqitmohyfwcigvkl"
+
+[functions.generate-demo-video]
+verify_jwt = false

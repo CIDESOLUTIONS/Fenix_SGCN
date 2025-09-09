@@ -4,6 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import TrialBanner from '@/components/TrialBanner';
 import { 
   BarChart3, 
   Shield, 
@@ -125,10 +126,14 @@ const Dashboard = () => {
           <main className="flex-1 overflow-auto">
             <div className="p-6">
               <div className="max-w-7xl mx-auto space-y-6">
+                <TrialBanner />
+                
+                <div>
                   <h1 className="text-lg font-semibold text-foreground">Fenix SGCN</h1>
                    <Badge variant="outline" className="text-xs">
                      {t('dashboard.system_active')}
                    </Badge>
+                </div>
                  {/* Welcome Section */}
                  <div>
                    <h2 className="text-2xl font-bold text-foreground">
