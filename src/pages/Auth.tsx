@@ -150,7 +150,7 @@ const Auth = () => {
               className="h-12 mx-auto mb-4"
             />
             <h1 className="text-2xl font-bold text-white mb-2">Fenix-SGCN</h1>
-            <p className="text-white/80">Sistema de Gestión de Continuidad del Negocio</p>
+            <p className="text-white/80">Sistema de Gestión de Continuidad de Negocio</p>
           </div>
           <div className="w-10"></div>
         </div>
