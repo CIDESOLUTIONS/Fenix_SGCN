@@ -36,7 +36,10 @@ const Header = () => {
             <a href="#plans" className="text-foreground hover:text-primary transition-smooth">
               {t('nav.plans')}
             </a>
-            <a href="#demo" className="text-foreground hover:text-primary transition-smooth">
+            <a href="#demo" className="text-foreground hover:text-primary transition-smooth" onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+            }}>
               {t('nav.demo')}
             </a>
           </nav>
@@ -74,7 +77,11 @@ const Header = () => {
               <a href="#plans" className="text-foreground hover:text-primary transition-smooth">
                 {t('nav.plans')}
               </a>
-              <a href="#demo" className="text-foreground hover:text-primary transition-smooth">
+              <a href="#demo" className="text-foreground hover:text-primary transition-smooth" onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+                setIsMenuOpen(false);
+              }}>
                 {t('nav.demo')}
               </a>
               <div className="flex flex-col space-y-3 pt-4 border-t border-border">
