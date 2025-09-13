@@ -9,6 +9,7 @@ import { AlertCircle, Building, User, Mail, Phone, Lock, ArrowLeft, KeyRound } f
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/hooks/use-toast';
+import phoenixLogo from '@/assets/phoenix-logo.png';
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -145,7 +146,7 @@ const Auth = () => {
           </Button>
           <div className="text-center flex-1">
             <img 
-              src="/src/assets/phoenix-logo.png" 
+              src={phoenixLogo} 
               alt="Fenix-SGCN" 
               className="h-12 mx-auto mb-4"
             />
