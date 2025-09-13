@@ -1,16 +1,21 @@
-import { useState } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, X, Download } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import demoThumbnail from '@/assets/sgcn-demo-thumbnail.jpg';
 import demoVideo from '@/assets/SGCN_Video_ Demo.mp4';
 
-const VideoDemo = () => {
+const VideoDemo = forwardRef<{ openDemo: () => void }>((props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDemoDialog = () => {
     setIsOpen(true);
   };
+
+  useImperativeHandle(ref, () => ({
+    openDemo: openDemoDialog
+  }));
+
 
   const downloadVideo = () => {
     const link = document.createElement('a');
@@ -94,6 +99,8 @@ const VideoDemo = () => {
       </Dialog>
     </>
   );
-};
+});
+
+VideoDemo.displayName = 'VideoDemo';
 
 export default VideoDemo;

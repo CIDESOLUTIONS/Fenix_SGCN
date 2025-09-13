@@ -125,7 +125,9 @@ const Modules = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="hero" size="lg">
+          <Button variant="hero" size="lg" onClick={() => {
+            document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+          }}>
             Ver Demo de Módulos
           </Button>
         </div>

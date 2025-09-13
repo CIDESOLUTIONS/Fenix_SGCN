@@ -1,11 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Shield, Zap, Globe } from "lucide-react";
+import { ArrowRight, Shield, Zap, Globe, Play } from "lucide-react";
 import { useSettings } from "@/contexts/SettingsContext";
 import VideoDemo from "./VideoDemo";
+import { useRef } from "react";
 
 const Hero = () => {
   const { t } = useSettings();
+  const videoDemoRef = useRef<any>(null);
+
+  const handleDemoClick = () => {
+    if (videoDemoRef.current) {
+      videoDemoRef.current.openDemo();
+    }
+  };
   
   return (
     <section className="relative overflow-hidden bg-gradient-hero pt-20 pb-16 md:pt-24 md:pb-20">
@@ -36,7 +44,8 @@ const Hero = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
-              <Button variant="professional" size="lg" className="text-lg px-8">
+              <Button variant="professional" size="lg" className="text-lg px-8" onClick={handleDemoClick}>
+                <Play className="mr-2 h-5 w-5" />
                 {t('hero.demo')}
               </Button>
             </div>
@@ -59,9 +68,9 @@ const Hero = () => {
           </div>
 
           {/* Hero Video Demo */}
-          <div className="relative">
+          <div className="relative" id="demo">
             <div className="relative z-10">
-              <VideoDemo />
+              <VideoDemo ref={videoDemoRef} />
             </div>
             {/* Background Gradient */}
             <div className="absolute inset-0 bg-gradient-primary opacity-20 rounded-2xl blur-2xl scale-110"></div>
