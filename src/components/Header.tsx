@@ -16,7 +16,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <img src={phoenixLogo} alt="Fenix" className="h-8 w-8" />
+            <img src={phoenixLogo} alt="Fenix" className="h-10 w-10" />
             <div className="flex flex-col">
               <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                 Fenix-SGCN

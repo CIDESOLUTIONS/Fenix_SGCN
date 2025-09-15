@@ -21,7 +21,7 @@ const SettingsDropdown = () => {
 
   const currencies = [
     { code: 'COP', name: 'Pesos (COP)', symbol: '$' },
-    { code: 'USD', name: 'Dollars (USD)', symbol: '$' },
+    { code: 'USD', name: 'Dollars (USD)', symbol: 'USD$' },
     { code: 'BRL', name: 'Reales (BRL)', symbol: 'R$' }
   ];
 

@@ -50,7 +50,7 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
                   <Mail className="h-4 w-4 text-primary" />
-                  <span>comercial@cidesolutions.com</span>
+                  <span>comercial@cidesas.com</span>
                 </div>
               </div>
             </div>
@@ -159,7 +159,7 @@ const Footer = () => {
         <div className="py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <img src={cideLogo} alt="CIDE SAS" className="h-8" />
+              <img src={cideLogo} alt="CIDE SAS" className="h-10" />
               <div className="text-sm text-muted-foreground">
                 © 2025 CIDE SAS. Todos los derechos reservados.
               </div>

@@ -110,7 +110,7 @@ const Modules = () => {
                 </CardDescription>
                 
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-foreground">Incluido en planes:</p>
+                  <p className="text-sm font-medium text-foreground">Incluido en los planes:</p>
                   <div className="flex flex-wrap gap-2">
                     {module.included.map((plan) => (
                       <Badge key={plan} variant="outline" className="text-xs">
