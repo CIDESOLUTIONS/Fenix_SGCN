@@ -1,0 +1,300 @@
+﻿Proyecto Fenix-SGCN
+Especificaciones Técnicas 
+Aplicación para la Administración del Sistema de Gestión de Continuidad del Negocio
+Versión: 1.0
+Fecha de Actualización: 5 de Septiembre de 2025
+
+1. Introducción
+
+1.1. Descripción General 
+
+Fenix-SGCN es el ecosistema operativo integral diseñado para modernizar y unificar el ciclo de vida (PHVA) de un sistema de Gestión de Continuidad de Negocio para las empresas independiente de su tamaño. Superando las limitaciones de las aplicaciones GRC de gestión tradicional, Fenix-SGCN se posiciona como el socio estratégico indispensable para todas las empresas. La Aplicación está diseñada para servir a un espectro completo de usuarios: desde empresas que entregan productos y servicios, profesionales que gerencian procesos de continuidad de negocio, asesores que implementan estos sistemas de gestión hasta los auditores que preparan a las empresas para su certificación. 
+
+1.2. Misión del Producto 
+Nuestra misión es transformar radicalmente la gestión y la experiencia del ciclo de vida (PHVA) de un sistema de Gestión de Continuidad de Negocio para las Empresas, consolidando a Fenix-SGCN como la aplicación indispensable para garantizar el control de la continuidad del negocio en las Empresas. Nos dedicamos a:
+* Empoderar a los Administradores: Proporcionar a los administradores del proceso de continuidad y a las empresas de gestión de continuidad y que realizan la  administración profesional, de las herramientas de automatización y análisis más potentes del mercado, permitiéndoles escalar sus operaciones, eliminar tareas manuales y ofrecer un servicio de excelencia.
+* Mejorar la Calidad de del proceso de continuidad en las Empresas: Ofrecer a la alta Gerencia y al dueño del proceso de continuidad, una experiencia de usuario fluida, segura y enriquecedora que simplifique su día a día, desde la identificación de los procesos críticos, su análisis de riesgo, su análisis de impacto al negocio, su estrategia de continuidad, sus pruebas y métricas adecuadas, la confianza de conocer en línea, el estado real de la contingencia para atender una posible recuperación ante la materialización de un riesgo que genera una interrupción convirtiendo la aplicación en el centro de control de las acciones a seguir.
+* Liderar con Innovación Tecnológica: Utilizar nuestra arquitectura técnica superior para ofrecer una plataforma más rápida, segura y fiable, estableciendo el nuevo estándar de lo que es posible en el sector PropTech.
+
+2. Arquitectura y Stack Tecnológico sugerido (Usar el conjunto de versiones de dependencias mas actualizadas pero estables)
+
+## 2.1. Arquitectura técnica recomendada
+- **API-first** con OpenAPI 3.1, GraphQL opcional.  
+- **Backend:** NestJS/Node.js con microservicios, Prisma ORM.  
+- **Frontend:** Next.js + React + internacionalización i18next.  
+- **DB:** PostgreSQL multi-tenant (schema-per-tenant), soporte DB-per-tenant para enterprise. supabase
+- **Storage:** S3-compatible con versionado, retención, WORM.  
+- **Orquestación:** Kafka para eventos críticos, Redis para cache.  
+- **Monitoring:** Prometheus, Grafana, OpenTelemetry, Sentry.  
+- **Infraestructura:** Kubernetes multi-región, Terraform, ArgoCD.  
+- **Testing:** Vitest/Jest + Playwright E2E + Chaos Engineering. 
+- **Autenticación: JWT (JSON Web Tokens)
+- **Validación: Zod 
+- **socket.io: Requerido para funcionalidades en tiempo real.
+- **Gráficos y Visualización: Recharts para gráficos y estadísticas
+- **Generación de PDFs: pdfkit para reportes exportables
+- **Métricas de Rendimiento: Core Web Vitals (LCP < 2.5s, INP < 200ms, CLS < 0.1)
+ 
+
+---
+## 2.2. Integraciones mínimas y avanzadas
+1. Identity providers (Okta, Azure AD, Auth0).  
+2. Comunicaciones (Twilio, SendGrid, WhatsApp, Teams, Slack).  
+3. ITSM (Aranda, ServiceNow, Jira).  
+4. Observabilidad (Prometheus, Grafana, ELK, Sentry).  
+5. Storage (S3, GCS, Azure Blob).  
+6. CRM/Billing (Stripe, PayPal, otros). 
+7. CI/CD: GitHub Actions, o similares
+8. Hosting: Plataformas tipo Vercel (Frontend), AWS/GCP (Backend/DB) 
+
+
+
+Interfaces de Usuario
+Diseño General
+* Diseño limpio y moderno con enfoque en usabilidad
+* Paleta de colores principal: Azul Índigo, Verde Esmeralda y fondo blanco
+* Soporte para modo oscuro/claro
+* Interfaz responsive para todos los dispositivos
+* Animaciones sutiles para mejorar la experiencia
+
+Componentes UI Reutilizables
+* Sistema de diseño basado en Shadcn/UI
+* Componentes altamente personalizables
+* Consistencia visual en toda la plataforma
+* Accesibilidad (WCAG 2.1 AA)
+
+Plantillas de Páginas
+* Layouts específicos para cada tipo de panel
+* Patrones de navegación intuitivos
+* Breadcrumbs para facilitar la navegación
+* Organización jerárquica de la información
+* Componentes de carga y estados vacíos diseñados
+
+Prácticas de Seguridad
+* Encriptación de datos sensibles de cada conjunto residencial
+* Protección contra ataques CSRF, XSS y SQL Injection
+* Rate limiting para prevenir ataques de fuerza bruta
+* Validación de datos en cliente y servidor
+* Auditoría de accesos y cambios
+* Backups automáticos diarios
+
+Privacidad de Datos
+* Cumplimiento con regulaciones de protección de datos
+* Políticas claras de privacidad y términos de uso
+* Opción de convertir datos a datos anónimos al eliminar cuentas
+* Exportación de datos personales
+* Consentimiento explícito para uso de cookies
+
+Pruebas funcionales
+Estrategia de Pruebas
+* Pruebas unitarias para componentes y flujos de servicios
+* Pruebas de integración para flujos principales
+* Pruebas E2E de las funcionalidades para cada portal
+* Pruebas de rendimiento y carga
+* Pruebas de compatibilidad con navegadores
+
+Control de Calidad
+* Revisión de código 
+* Análisis estático de código
+* Monitoreo de errores en producción
+* Retroalimentación continua de usuarios
+* Métricas de calidad (cobertura de pruebas, complejidad ciclomática)
+
+Despliegue y Operaciones
+Definiciones de Infraestructura (panel administrador de la aplicación)
+* Definiciones y guía de despliegue en la nube (AWS, Azure o GCP)
+* Arquitectura serverless donde sea posible
+* Base de datos PostgreSQL gestionada
+* CDN para activos estáticos
+* Balanceador de carga para alta disponibilidad
+
+CI/CD (panel administrador de la aplicación)
+* Integración continua con GitHub Actions
+* Despliegue continuo en entornos de desarrollo y pruebas
+* Despliegue controlado en producción
+* Rollbacks automatizados en caso de fallos
+* Entornos de desarrollo, staging y producción
+
+Mejoras Continuas
+* Optimización de rendimiento
+* Mejoras de usabilidad basadas en feedback
+* Nuevas funcionalidades según necesidades del mercado
+* Expansión internacional con soporte multilenguaje
+* Integraciones con sistemas externos (contabilidad, bancos, etc.)
+
+Consideraciones Especiales
+Accesibilidad
+* Conformidad con WCAG 2.1 nivel AA
+* Soporte para lectores de pantalla
+* Navegación por teclado
+* Alto contraste y fuentes ajustables
+* Textos alternativos para imágenes
+
+Internacionalización
+* Soporte inicial para español, inglés y portugués
+* Estructura preparada para fácil expansión a otros idiomas
+* Formatos de fecha y número según localización
+* Soporte para múltiples monedas (dólares americanos, real brasileño y pesos colombianos)
+por defecto debe arrancar en español, pesos colombianos y modo claro.
+
+Escalabilidad
+* Arquitectura diseñada para escalar horizontalmente
+* Optimización de consultas a base de datos
+* Caché estratégica para datos frecuentemente accedidos
+* Lazy loading de componentes y datos
+* Particionamiento de base de datos para grandes volúmenes
+
+Panel Administrador de la Aplicación
+* Gestión de Clientes de Fenix-SGCN (número de inscripciones por cada modelo freemium)
+* Dashboard de métricas operativas 
+* Ingresos mensuales y acumulados anuales 
+* Monitoreo de uso y rendimiento
+* Estadísticas y métricas de uso
+* Gestión de licencias y planes
+* Soporte y asistencia técnica
+* Gestión comercial de clientes del plan básico para conversión.
+* Configuración global del sistema
+* Monitoreo de disponibilidad y tiempos de respuesta
+* Alertas automáticas para incidentes
+* Análisis de logs centralizados
+* Monitoreo de experiencia del usuario real
+
+
+3. Módulos y Portales de la Plataforma
+3.1. Portal Público y de Adquisición
+Landing page optimizada para SEO y conversión, con información clara de planes y un llamado a la acción para registro o solicitud de demo, con imágenes alusivas al dashboard de continuidad de Negocio; otra sección de los beneficios y funcionalidades (Modulo planeación: RACI, Selección de procesos críticos de negocio, política de continuidad de negocio; Modulo completo de análisis de riesgos de continuidad -ARA; Modulo completo de análisis de impacto al negocio -BIA: Ponderación, evaluación y priorización de procesos, métricas (RPO,RTO,MTPD, MBCO); Módulo Escenarios y Estrategia de continuidad. Modulo de planes de Continuidad: Respuesta a incidentes-IRP,  Recuperación Desastres DRP incluye  de Recuperación y  de restauración; de Continuidad de negocio-BCP. de Manejo de Crisis; Modulo de Pruebas de continuidad, Modulo de mantenimiento y mejora continua del sistema
+
+
+3.2. Portal de Administración (Para el dueño del proceso de continuidad de negocio y usuarios) 
+Página Principal (privada) después de logio válido.
+
+3.2.1.Dashboard: Vista general con KPIs: Cantidad de procesos respaldados Vs. total procesos críticos, Cantidad de riesgos de continuidad, cantidad de Procesos evaluados BIA y sus métricas (ROT, RPO, MTDP y MBCO) , Cantidad de pruebas realizadas y tipo de prueba por proceso o total, Cantidad de Contingencias reales, Cantidad de acciones correctivas y estado (Pendientes en ejecución y terminadas) y últimas actividades.
+
+* Bitácora digital de novedades y registro de incidentes (atención botón de inicio/cancelación de contingencia parcial o total).
+
+
+3.2.2.Menú lateral colapsable, con las diferentes módulos de funcionalidades del proceso de Sistema de Gestión de Continuidad de negocio, basado en la norma 22301, dentro de este menú (el home es el dashboard). están los siguientes módulos que contiene unas funcionalidades básicas, de ser necesario, implemente adicionales o modifique las requeridas:
+
+3.2.2.1. Módulo de Planeación y Gobierno 
+* Gestión matriz RACI 
+* Procesos Críticos (Registro, Matriz de evaluación y selección de procesos) 
+* Repositorio documental (Documentos estratégicos, misionales y tecnológicos, Política de Continuidad de Negocio)  
+
+3.2.2.2. Módulo de Riesgo Continuidad - ARA
+* Registro de Riesgos de Continuidad, plantillas editables
+* Ponderación y Evaluación de Riesgos antes y después de controles 
+* Repositorio documental (Metodología de evaluación ARA, Matriz de Riesgos por Proceso).
+
+3.2.2.3. Módulo Análisis de Impacto al Negocio - BIA
+* Registro de procesos a evaluar BIA y sus métricas (ROT, RPO, MTDP y MBCO). Plantillas editables.
+* Matriz de ponderación, evaluación y priorización
+* Matriz de impacto potencial por proceso
+* Repositorio documental (Metodología BIA, Informe consolidado BIA, Priorización de procesos)
+
+3.2.2.4. Módulo de Escenarios y Estrategias
+* Generación de escenarios por proceso. plantilla editable.
+* Matriz de ponderación y evaluación de escenarios.
+* Matriz de priorización y recomendación de escenarios de recuperación.
+* Repositorio documental (Metodología de selección, Informe consolidado de estrategia priorizada por procesos)
+
+3.2.2.5. Módulo de Planes de Continuidad
+* Registro de planes de Planes de Respuesta, Recuperación y Restauración. plantilla editable.
+* Registro de plan de manejo de Crisis, equipos de respuesta y matriz de comunicaciones.
+* Ejecución de los flujos de los planes (Respuesta, Recuperación, Restauración y Crisis).registros documentales
+* Repositorio documental (Plan de continuidad de negocio - BCP; plan de recuperación y restauración de TI - DRP; Plan de manejo de Crisis, Manuales operativos detallados de recuperación tecnológica y operativa de don roles y responsables por procesos)
+
+3.2.2.6. Módulo de Pruebas de continuidad
+* Diseño del programa anual de pruebas (de escritorio, funcionales y simulaciones), plantilla editable.
+* Ejecución flujos de pruebas y documentación resultados
+* Matriz de lecciones aprendidas y plan de acciones de mejora.
+* Repositorio documental (Plan Anula de pruebas, Informe de resultados de pruebas, Informe consolidado de lecciones aprendidas y plan de acciones sde mejora, por procesos)
+
+3.2.2.7. Módulo de Mantenimiento y Mejora continua - QA
+* Dashboard de resultado generales de SGCN para revisión por la Dirección.
+* Gestión de acciones correctivas (planes de acciones y cierre de "no" conformidades) 
+* Plan de Divulgación y Comunicación (Estrategia de cultura de resiliencia, socialización de roles con interesados)
+* Repositorio documental (Actas de revisiones del SGCN por la dirección, Informe consolidado de lecciones aprendidas, plan de acciones de mejora, y plan de comunicación y sensibilización)
+
+3.3. Portal Empresarial "Fenix-SGCN Portafolio"
+* Descripción: Un nuevo portal y nivel de plan diseñado específicamente para empresas de administración profesional que gestionan múltiples sistemas de gestión de continuidad de empresas.
+* Funcionalidades Clave:
+   * Dashboard Multi-SGCN: Vista consolidada que muestra los KPIs más importantes de todos las Empresas administradas en una sola pantalla.
+   * Gestión Centralizada: Capacidad de navegar entre las diferentes Empresas sin necesidad de cerrar e iniciar sesión.
+   * Informes Consolidados: Generación de reportes de estado de los SGCN y tareas en curso que agrupen la información de todo el portafolio.
+   * Personalización de Marca (White-Labeling): Opción para que la empresa administradora personalice la plataforma con su propio logo y colores, ofreciéndola a sus clientes como una solución propia.
+* Propósito Estratégico: Atacar el lucrativo segmento de mercado B2B de administradores profesionales. Esta es la iniciativa más importante para el crecimiento de ingresos y la creación de una ventaja competitiva sostenible.
+
+4. Estructura de Planes y Modelo de Negocio 
+* Plan Estándar: 199USD por mes, hasta 50 Empleados, Hasta 10 procesos en el SGCN, primeros 5 módulos (Gobierno, Riesgos -ARA, BIA, Estrategia y Planes, 50GB almacén documental y retención 1 año.
+* Plan Profesional:399USD por mes, hasta 150 Empleados, Hasta 30 procesos en el SGCN, Todo lo del Plan Básico + Módulo 6 y 7 (Pruebas y QA). 200GB almacén documental y retención 2 año.
+* Plan Premium: Personalizado por año, ilimitados Empleados y procesos en el SGCN, Todo lo del profesional + soporte preferencial para pruebas y atención de incidentes hasta 2 por año.500GB almacén documental y retención 3 año.
+* Plan Empresarial "Portafolio": Todo lo del Premium + Dashboard "Fenix-SGCN Portafolio", personalización de marca, soporte prioritario.
+
+
+5. Resumen comprensivo del funcionamiento
+
+Visión General del Sistema
+Fénix-SGCN es un ecosistema operativo integral diseñado específicamente para modernizar y unificar la administración de Sistema de Gestión de Continuidad de Negocio. La aplicación trasciende el concepto tradicional de software de gestión para posicionarse como el socio estratégico indispensable para la Gestión de Continuidad den las empresas. Su arquitectura está diseñada para servir a un espectro completo de usuarios que incluye empresas de administración profesional de SGCN, administradores del proceso de continuidad, roles responsables de la aplicación de la continuidad, los cuales buscan una experiencia sin fricción y efectiva para la gestionar la continuidad de negocio y  que requieren una  herramienta fiable y sencilla.
+
+La plataforma centraliza la documentación, los procesos, los planes, pruebas  y las comunicaciones, automatiza las calificaciones de Riesgo e Impacto en los procesos, optimiza la atención oportuna de un incidente de continuidad que ocasiona una interrupción en la entrega de productos y/o servicios y fomenta una cultura de resiliencia en la empresa. Su misión fundamental es transformar radicalmente la gestión y la experiencia profesional en la Gestión de continuidad,  consolidándose como la aplicación central e indispensable para cada Empresa.
+
+Arquitectura Técnica y Stack Tecnológico
+
+Arquitectura General
+La aplicación implementa una arquitectura full-stack moderna en contenedores con separación clara entre frontend y backend, diseñada bajo el principio de multi-tenancy donde cada Empresa  opera con su propio esquema de base de datos, garantizando aislamiento de datos y escalabilidad.
+
+Frontend
+El frontend es un contenedor que está construido con Next.js 15+ y React 19+, aprovechando las características más avanzadas como Server Components y Server Actions para optimizar el rendimiento y la experiencia del usuario. La aplicación utiliza TypeScript para garantizar la robustez del código y reduce significativamente los errores en tiempo de ejecución.
+El sistema de diseño está basado en Shadcn/UI, proporcionando componentes altamente personalizables y reutilizables que mantienen consistencia visual en toda la plataforma. La interfaz es completamente responsive, adaptándose a dispositivos móviles, tablets y escritorio, con soporte para modo oscuro y claro. La paleta de colores principal utiliza Índigo (#4f46e5) y blanco (#ffffff), con animaciones sutiles que mejoran la experiencia sin comprometer el rendimiento.
+
+Backend
+El backend es un contenedor que está desarrollado con Node.js y NestJS, proporcionando una arquitectura modular y escalable. Utiliza Supabase  o PostgreSQL 17+ como base de datos principal con Prisma 6+ como ORM, lo que facilita las migraciones y el manejo de esquemas complejos. La autenticación se basa en JSON Web Tokens (JWT), garantizando seguridad y escalabilidad.
+Para las funcionalidades en tiempo real, la aplicación integra Socket.io, permitiendo notificaciones instantáneas y actualizaciones en vivo. Las comunicaciones externas se manejan a través de Twilio para SMS y notificaciones push.
+
+Características Técnicas Destacadas
+La aplicación implementa métricas de rendimiento optimizadas siguiendo los Core Web Vitals con objetivos específicos: LCP (Largest Contentful Paint) menor a 2.5 segundos, INP (Interaction to Next Paint) menor a 200ms, y CLS (Cumulative Layout Shift) menor a 0.1. Estas métricas aseguran una experiencia de usuario excepcional.
+La seguridad es una prioridad fundamental con implementación de encriptación de datos sensibles, protección contra ataques CSRF, XSS y SQL Injection, rate limiting para prevenir ataques de fuerza bruta, validación de datos tanto en cliente como servidor, auditoría de accesos y cambios, y backups automáticos diarios.
+
+
+Módulos y Portales del Sistema
+
+Portal Público y de Adquisición
+El punto de entrada al ecosistema Fenix-SGCN es una landing page optimizada para SEO y conversión, diseñada para presentar claramente los planes disponibles y generar leads calificados. La página incluye imágenes alusivas a los KPIs y flujos de procesos de pruebas de continuidad y una sección de videos que demuestran los flujos de las funcionalidades más importantes del sistema de gestión de continuidad basado en el estándar ISO 22301 y otros. 
+
+Portal de Administración
+El portal de administración constituye el centro de control para el administradores o dueño del proceso de continuidad , proporcionando una vista integral de todas las funcionalidades.
+
+
+Portal Empresarial "Fénix-SGCN Portafolio"
+Diseñado específicamente para empresas de administración profesional que gestionan múltiples Empresas, este portal representa una oportunidad significativa en el segmento B2B. Incluye un Dashboard Multi-Empresa que muestra KPIs consolidados de todas las Empresas administradas en una sola pantalla, gestión centralizada que permite navegar entre diferentes Empresas sin necesidad de cerrar e iniciar sesión repetidamente, informes consolidados que agrupan información de resultados de pruebas y operativa de todo el portafolio, y personalización de marca (White-Labeling) que permite a las empresas administradoras personalizar la plataforma con su propio logo y colores, ofreciéndola a sus clientes como una solución propia.
+
+Módulo de Ecosistema y Alianzas (Opcional)
+Este módulo expande el modelo de negocio más allá del SaaS tradicional, integrando servicios de valor agregado a través de alianzas estratégicas. Incluye un Directorio de Servicios tecnológicos para Empresas con proveedores verificados organizados por categorías como Facilities, Infraestructura y Plataformas TI (local o en nube), Personal Administrador de TI,  donde cada proveedor tiene un perfil completo con calificaciones y reseñas de otras empresas.
+El módulo implementa un Programa de Alianzas vía API que incluye alianzas para ofrecer cotizaciones de servicios TI directamente desde el portal de la Empresa con formularios pre-llenados y cotizaciones instantáneas, y alianzas FinTech para ofrecer soluciones como micro-créditos para el pago de servicios de contingencia.
+
+Estructura de Planes y Modelo de Negocio
+La aplicación implementa una estrategia de monetización escalonada con cinco planes principales, que permite a las empresas seleccionar el que mas se ajuste a sus necesidades
+
+* Plan Estándar,
+* Plan Profesional,
+* Plan Premium y
+* Plan Empresarial "Portafolio"
+
+Características de Seguridad y Privacidad
+La aplicación implementa un enfoque integral de seguridad que incluye encriptación de datos sensibles de cada Empresa, protección robusta contra ataques CSRF, XSS y SQL Injection, rate limiting para prevenir ataques de fuerza bruta, validación exhaustiva de datos tanto en cliente como servidor, auditoría completa de accesos y cambios con logs detallados y backups automáticos periodicos con múltiples puntos de restauración.
+En términos de privacidad, la aplicación cumple con regulaciones de protección de datos, implementa políticas claras de privacidad y términos de uso, ofrece la opción de convertir datos a datos anónimos al eliminar cuentas, permite exportación de datos personales, y requiere consentimiento explícito para uso de cookies.
+
+Estrategia de Pruebas y Calidad
+La aplicación implementa una estrategia comprehensiva de pruebas que incluye pruebas unitarias para componentes y flujos de servicios utilizando Vitest, pruebas de integración para flujos principales, pruebas End-to-End de las funcionalidades para cada portal utilizando Playwright, pruebas de rendimiento y carga, y pruebas de compatibilidad con múltiples navegadores.
+El control de calidad se mantiene a través de revisión de código obligatoria, análisis estático de código, monitoreo de errores en producción, retroalimentación continua de usuarios, y métricas de calidad que incluyen cobertura de pruebas y complejidad ciclomática.
+
+Consideraciones de Escalabilidad e Internacionalización
+La arquitectura está diseñada para escalar horizontalmente con optimización de consultas a base de datos, caché estratégica para datos frecuentemente accedidos, lazy loading de componentes y datos, y particionamiento de base de datos para grandes volúmenes.
+La aplicación incluye soporte inicial para español, inglés y portugués con estructura preparada para fácil expansión a otros idiomas, formatos de fecha y número según localización, y soporte para múltiples monedas incluyendo dólares americanos, real brasileño y pesos colombianos. Por defecto, la aplicación arranca en español, pesos colombianos y modo claro.
+
+Conclusión
+Fenix-SGCN representa una solución integral y sofisticada para la gestión del proceso de continuidad en las empresas, que va mucho más allá de las herramientas tradicionales de administración. Su arquitectura multi-tenant, su enfoque en la experiencia del usuario, sus características avanzadas como Gestión de flujos de pruebas y gestión documental, y su estrategia de monetización escalonada la posicionan como una plataforma líder en el sector PropTech.
+La aplicación no solo automatiza procesos administrativos sino que crea un verdadero ecosistema de Continuidad que mejora la calidad de atención del incidente e interrupción en la entrega de productos o servicios de las empresas, optimiza las operaciones de los administradores y responsables de la continuidad y genera múltiples flujos de ingresos a través de alianzas estratégicas y servicios de valor agregado. Su diseño técnico robusto, su enfoque en la seguridad y privacidad, y su capacidad de escalabilidad la convierten en una solución preparada para el futuro de la gestión de Sistemas de Gestión de Continuidad de Negocio - SGCN.
+
+
+
